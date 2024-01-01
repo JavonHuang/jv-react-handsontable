@@ -1,0 +1,66 @@
+{
+  "name": "jv-react-handsontable",
+  "version": "0.1.14",
+  "type": "module",
+  "files": [
+    "dist",
+    "package",
+    "src",
+    "public",
+    "src",
+    ".gitignore",
+    "index.html",
+    "package.json",
+    "tsconfig.json",
+    "tsconfig.node.json",
+    "vite.config.ts",
+    "readme.md"
+  ],
+  "main": "./dist/jv-react-handsontable.umd.js",
+  "module": "./dist/jv-react-handsontable.js",
+  "typings": "./dist/lib/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/jv-react-handsontable.js",
+      "require": "./dist/jv-react-handsontable.umd.js"
+    },
+    "./style": "./dist/style.css"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "vite",
+    "local": "vite --mode dev",
+    "build": "vite build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JavonHuang/vite-react-ts.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JavonHuang/vite-react-ts/issues"
+  },
+  "homepage": "https://github.com/JavonHuang/vite-react-ts#readme",
+  "dependencies": {
+    "bignumber.js": "^9.1.2",
+    "handsontable": "^14.0.0",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "antd": "^5.12.4",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.10",
+    "@vitejs/plugin-react": "^3.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "@rollup/plugin-dynamic-import-vars": "^2.0.3",
+    "@rollup/plugin-typescript": "^11.1.5",
+    "@types/lodash": "^4.14.202",
+    "@types/node": "^18.13.0",
+    "sass": "^1.58.1",
+    "tslib": "^2.6.2",
+    "typescript": "^5.3.3",
+    "vite": "^4.1.1"
+  }
+}
