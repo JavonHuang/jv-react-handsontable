@@ -119,13 +119,12 @@ const ReactHandsontable = (props: IReactHandsontable) => {
           dom.setAttribute('last-data',value)
           if (firstDom) {
             let lastValue = firstDom!.getAttribute('last-data')
-            if (lastValue!=value.toString()) { 
+            if (value!=null&&lastValue!=value.toString()) { 
               cellNodeMapRef[`index-${row}${col}`]={
                 td: dom,
                 node:e.rendereCell!(value, cellProperties)
               }
               td.replaceChild(dom, firstDom)
-
             }
           } else { 
             cellNodeMapRef[`index-${row}${col}`]={
@@ -168,6 +167,7 @@ const ReactHandsontable = (props: IReactHandsontable) => {
       rowHeaders: true,
       columnHeaderHeight: 40,
       rowHeights: 40,
+      minSpareRows:5,
       licenseKey: 'non-commercial-and-evaluation', // for non-commercial use only
       afterRender: (isForced)=>{ 
         let list:any=[]
@@ -275,3 +275,4 @@ const ReactHandsontable = (props: IReactHandsontable) => {
   </ReactHandsontableContext.Provider>
 }
 export default ReactHandsontable
+

@@ -1,14 +1,18 @@
 import { ReactHandsontableContext } from "@/../package/ReactHandsontableContext";
 import { Select } from "antd";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 const Test2=(props:any) => { 
   const reactHandsontableContext = useContext(ReactHandsontableContext)!
-  const [defaultValue] = useState(props.originalValue)
+  let defaultValue:any=[]
+  if(props.originalValue){
+    defaultValue=props.originalValue
+  }
   const onPreventMouseDown = (event: React.MouseEvent<HTMLSpanElement>) => {
     event.preventDefault();
     event.stopPropagation();
   };
+
   const onChange = (e:any) => { 
     reactHandsontableContext.setValue!(e,false)
   }

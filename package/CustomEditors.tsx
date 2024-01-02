@@ -5,6 +5,7 @@ import { createRoot } from 'react-dom/client';
 import { createPortal } from 'react-dom';
 
 class CustomEditors extends Handsontable.editors.BaseEditor {
+  //第一次编辑才触发
   init() {
     // Create detached node, add CSS class and make sure its not visible
     this.select = this.hot.rootDocument.createElement('div');
@@ -14,6 +15,7 @@ class CustomEditors extends Handsontable.editors.BaseEditor {
     this.hot.rootElement.appendChild(this.select);
   }
 
+  //编辑选中
   prepare(row, col, prop, td, originalValue, cellProperties) {
     super.prepare(row, col, prop, td, originalValue, cellProperties);
     this.close()

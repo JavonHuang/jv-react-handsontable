@@ -92,7 +92,7 @@ const MyTable = () => {
   const init = () => {
     let list1 = [];
     let year = 2023;
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 1; i++) {
       // list1.push({
       //   year: yaer - i, momth: 12, day: 160+i,second:i
       // })
@@ -104,7 +104,7 @@ const MyTable = () => {
   return <>
     <ReactHandsontable
     data={data}
-    // selected
+    selected
     columns={columns}
   >
     </ReactHandsontable>
