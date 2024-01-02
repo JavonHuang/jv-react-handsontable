@@ -20,8 +20,9 @@ const MyTable = () => {
       width: 180,
       wordWrap: true,
       className: 'center',
+      allowInvalid: false,
       validator: (value, callBack) => { 
-        callBack(false);
+        emailValidator(value,callBack);
       },
       rendereCell: (value, cellProperties:any) => { 
         if (cellProperties.row== 2) {
@@ -31,7 +32,7 @@ const MyTable = () => {
       }
     },
     {
-      title: '<span>身高</span>',
+      title: '身高',
       width: 80,
       className: 'center',
       required:true

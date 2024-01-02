@@ -248,7 +248,7 @@ function bN() {
       var Ce = typeof WeakMap == "function" ? WeakMap : Map;
       de = new Ce();
     }
-    function we(k, ue) {
+    function pe(k, ue) {
       if (!k || oe)
         return "";
       {
@@ -319,8 +319,8 @@ function bN() {
       var st = k ? k.displayName || k.name : "", _n = st ? se(st) : "";
       return typeof k == "function" && de.set(k, _n), _n;
     }
-    function pe(k, ue, me) {
-      return we(k, !1);
+    function we(k, ue, me) {
+      return pe(k, !1);
     }
     function ee(k) {
       var ue = k.prototype;
@@ -330,7 +330,7 @@ function bN() {
       if (k == null)
         return "";
       if (typeof k == "function")
-        return we(k, ee(k));
+        return pe(k, ee(k));
       if (typeof k == "string")
         return se(k);
       switch (k) {
@@ -342,7 +342,7 @@ function bN() {
       if (typeof k == "object")
         switch (k.$$typeof) {
           case l:
-            return pe(k.render);
+            return we(k.render);
           case d:
             return ye(k.type, ue, me);
           case g: {
@@ -1478,7 +1478,7 @@ function j1() {
       enumerable: !0,
       value: !1
     }
-  })), ie = null, se = null, oe = !0, de = !0, Ce = !1, we = !0, pe = !1, ee = !1, ye = !1, $e = !1, Ae = !1, Fe = !1, Ie = !1, R = !0, A = !1, N = "user-content-", J = !0, F = !1, Q = {}, K = null, j = tt({}, ["annotation-xml", "audio", "colgroup", "desc", "foreignobject", "head", "iframe", "math", "mi", "mn", "mo", "ms", "mtext", "noembed", "noframes", "noscript", "plaintext", "script", "style", "svg", "template", "thead", "title", "video", "xmp"]), te = null, Z = tt({}, ["audio", "video", "img", "source", "image", "track"]), ne = null, fe = tt({}, ["alt", "class", "for", "id", "label", "name", "pattern", "placeholder", "role", "summary", "title", "value", "style", "xmlns"]), Ee = "http://www.w3.org/1998/Math/MathML", He = "http://www.w3.org/2000/svg", ke = "http://www.w3.org/1999/xhtml", Ge = ke, Rt = !1, Qe = null, mt = tt({}, [Ee, He, ke], $m), Et, eo = ["application/xhtml+xml", "text/html"], Or = "text/html", xt, rn = null, bi = r.createElement("form"), Tn = function(V) {
+  })), ie = null, se = null, oe = !0, de = !0, Ce = !1, pe = !0, we = !1, ee = !1, ye = !1, $e = !1, Ae = !1, Fe = !1, Ie = !1, R = !0, A = !1, N = "user-content-", J = !0, F = !1, Q = {}, K = null, j = tt({}, ["annotation-xml", "audio", "colgroup", "desc", "foreignobject", "head", "iframe", "math", "mi", "mn", "mo", "ms", "mtext", "noembed", "noframes", "noscript", "plaintext", "script", "style", "svg", "template", "thead", "title", "video", "xmp"]), te = null, Z = tt({}, ["audio", "video", "img", "source", "image", "track"]), ne = null, fe = tt({}, ["alt", "class", "for", "id", "label", "name", "pattern", "placeholder", "role", "summary", "title", "value", "style", "xmlns"]), Ee = "http://www.w3.org/1998/Math/MathML", He = "http://www.w3.org/2000/svg", ke = "http://www.w3.org/1999/xhtml", Ge = ke, Rt = !1, Qe = null, mt = tt({}, [Ee, He, ke], $m), Et, eo = ["application/xhtml+xml", "text/html"], Or = "text/html", xt, rn = null, bi = r.createElement("form"), Tn = function(V) {
     return V instanceof RegExp || V instanceof Function;
   }, Jt = function(V) {
     rn && rn === V || ((!V || ls(V) !== "object") && (V = {}), V = Hs(V), Et = // eslint-disable-next-line unicorn/prefer-includes
@@ -1496,7 +1496,7 @@ function j1() {
       // eslint-disable-line indent
       xt
       // eslint-disable-line indent
-    ) : Z, K = "FORBID_CONTENTS" in V ? tt({}, V.FORBID_CONTENTS, xt) : j, ie = "FORBID_TAGS" in V ? tt({}, V.FORBID_TAGS, xt) : {}, se = "FORBID_ATTR" in V ? tt({}, V.FORBID_ATTR, xt) : {}, Q = "USE_PROFILES" in V ? V.USE_PROFILES : !1, oe = V.ALLOW_ARIA_ATTR !== !1, de = V.ALLOW_DATA_ATTR !== !1, Ce = V.ALLOW_UNKNOWN_PROTOCOLS || !1, we = V.ALLOW_SELF_CLOSE_IN_ATTR !== !1, pe = V.SAFE_FOR_TEMPLATES || !1, ee = V.WHOLE_DOCUMENT || !1, Ae = V.RETURN_DOM || !1, Fe = V.RETURN_DOM_FRAGMENT || !1, Ie = V.RETURN_TRUSTED_TYPE || !1, $e = V.FORCE_BODY || !1, R = V.SANITIZE_DOM !== !1, A = V.SANITIZE_NAMED_PROPS || !1, J = V.KEEP_CONTENT !== !1, F = V.IN_PLACE || !1, m = V.ALLOWED_URI_REGEXP || m, Ge = V.NAMESPACE || ke, U = V.CUSTOM_ELEMENT_HANDLING || {}, V.CUSTOM_ELEMENT_HANDLING && Tn(V.CUSTOM_ELEMENT_HANDLING.tagNameCheck) && (U.tagNameCheck = V.CUSTOM_ELEMENT_HANDLING.tagNameCheck), V.CUSTOM_ELEMENT_HANDLING && Tn(V.CUSTOM_ELEMENT_HANDLING.attributeNameCheck) && (U.attributeNameCheck = V.CUSTOM_ELEMENT_HANDLING.attributeNameCheck), V.CUSTOM_ELEMENT_HANDLING && typeof V.CUSTOM_ELEMENT_HANDLING.allowCustomizedBuiltInElements == "boolean" && (U.allowCustomizedBuiltInElements = V.CUSTOM_ELEMENT_HANDLING.allowCustomizedBuiltInElements), pe && (de = !1), Fe && (Ae = !0), Q && (T = tt({}, ai(o0)), _ = [], Q.html === !0 && (tt(T, i0), tt(_, s0)), Q.svg === !0 && (tt(T, Fm), tt(_, Bm), tt(_, Eh)), Q.svgFilters === !0 && (tt(T, Wm), tt(_, Bm), tt(_, Eh)), Q.mathMl === !0 && (tt(T, Vm), tt(_, a0), tt(_, Eh))), V.ADD_TAGS && (T === O && (T = Hs(T)), tt(T, V.ADD_TAGS, xt)), V.ADD_ATTR && (_ === Y && (_ = Hs(_)), tt(_, V.ADD_ATTR, xt)), V.ADD_URI_SAFE_ATTR && tt(ne, V.ADD_URI_SAFE_ATTR, xt), V.FORBID_CONTENTS && (K === j && (K = Hs(K)), tt(K, V.FORBID_CONTENTS, xt)), J && (T["#text"] = !0), ee && tt(T, ["html", "head", "body"]), T.table && (tt(T, ["tbody"]), delete ie.tbody), tr && tr(V), rn = V);
+    ) : Z, K = "FORBID_CONTENTS" in V ? tt({}, V.FORBID_CONTENTS, xt) : j, ie = "FORBID_TAGS" in V ? tt({}, V.FORBID_TAGS, xt) : {}, se = "FORBID_ATTR" in V ? tt({}, V.FORBID_ATTR, xt) : {}, Q = "USE_PROFILES" in V ? V.USE_PROFILES : !1, oe = V.ALLOW_ARIA_ATTR !== !1, de = V.ALLOW_DATA_ATTR !== !1, Ce = V.ALLOW_UNKNOWN_PROTOCOLS || !1, pe = V.ALLOW_SELF_CLOSE_IN_ATTR !== !1, we = V.SAFE_FOR_TEMPLATES || !1, ee = V.WHOLE_DOCUMENT || !1, Ae = V.RETURN_DOM || !1, Fe = V.RETURN_DOM_FRAGMENT || !1, Ie = V.RETURN_TRUSTED_TYPE || !1, $e = V.FORCE_BODY || !1, R = V.SANITIZE_DOM !== !1, A = V.SANITIZE_NAMED_PROPS || !1, J = V.KEEP_CONTENT !== !1, F = V.IN_PLACE || !1, m = V.ALLOWED_URI_REGEXP || m, Ge = V.NAMESPACE || ke, U = V.CUSTOM_ELEMENT_HANDLING || {}, V.CUSTOM_ELEMENT_HANDLING && Tn(V.CUSTOM_ELEMENT_HANDLING.tagNameCheck) && (U.tagNameCheck = V.CUSTOM_ELEMENT_HANDLING.tagNameCheck), V.CUSTOM_ELEMENT_HANDLING && Tn(V.CUSTOM_ELEMENT_HANDLING.attributeNameCheck) && (U.attributeNameCheck = V.CUSTOM_ELEMENT_HANDLING.attributeNameCheck), V.CUSTOM_ELEMENT_HANDLING && typeof V.CUSTOM_ELEMENT_HANDLING.allowCustomizedBuiltInElements == "boolean" && (U.allowCustomizedBuiltInElements = V.CUSTOM_ELEMENT_HANDLING.allowCustomizedBuiltInElements), we && (de = !1), Fe && (Ae = !0), Q && (T = tt({}, ai(o0)), _ = [], Q.html === !0 && (tt(T, i0), tt(_, s0)), Q.svg === !0 && (tt(T, Fm), tt(_, Bm), tt(_, Eh)), Q.svgFilters === !0 && (tt(T, Wm), tt(_, Bm), tt(_, Eh)), Q.mathMl === !0 && (tt(T, Vm), tt(_, a0), tt(_, Eh))), V.ADD_TAGS && (T === O && (T = Hs(T)), tt(T, V.ADD_TAGS, xt)), V.ADD_ATTR && (_ === Y && (_ = Hs(_)), tt(_, V.ADD_ATTR, xt)), V.ADD_URI_SAFE_ATTR && tt(ne, V.ADD_URI_SAFE_ATTR, xt), V.FORBID_CONTENTS && (K === j && (K = Hs(K)), tt(K, V.FORBID_CONTENTS, xt)), J && (T["#text"] = !0), ee && tt(T, ["html", "head", "body"]), T.table && (tt(T, ["tbody"]), delete ie.tbody), tr && tr(V), rn = V);
   }, Mt = tt({}, ["mi", "mo", "mn", "ms", "mtext"]), nu = tt({}, ["foreignobject", "desc", "title", "annotation-xml"]), gh = tt({}, ["title", "style", "font", "a", "script"]), Da = tt({}, Fm);
   tt(Da, Wm), tt(Da, uV);
   var ru = tt({}, Vm);
@@ -1607,7 +1607,7 @@ function j1() {
       }
       return Xr(V), !0;
     }
-    return V instanceof a && !mh(V) || (ge === "noscript" || ge === "noembed" || ge === "noframes") && Yn(/<\/no(script|embed|frames)/i, V.innerHTML) ? (Xr(V), !0) : (pe && V.nodeType === 3 && (ae = V.textContent, ae = qr(ae, W, " "), ae = qr(ae, D, " "), ae = qr(ae, B, " "), V.textContent !== ae && (uu(e.removed, {
+    return V instanceof a && !mh(V) || (ge === "noscript" || ge === "noembed" || ge === "noframes") && Yn(/<\/no(script|embed|frames)/i, V.innerHTML) ? (Xr(V), !0) : (we && V.nodeType === 3 && (ae = V.textContent, ae = qr(ae, W, " "), ae = qr(ae, D, " "), ae = qr(ae, B, " "), V.textContent !== ae && (uu(e.removed, {
       element: V.cloneNode()
     }), V.textContent = ae)), me("afterSanitizeElements", V, null), !1);
   }, ht = function(V, ae, ge) {
@@ -1655,11 +1655,11 @@ function j1() {
         ae = Ht[_n];
         var Ch = ae, Cn = Ch.name, mm = Ch.namespaceURI;
         if (ge = Cn === "value" ? ae.value : aV(ae.value), st = xt(Cn), Mn.attrName = st, Mn.attrValue = ge, Mn.keepAttr = !0, Mn.forceKeepAttr = void 0, me("uponSanitizeAttribute", V, Mn), ge = Mn.attrValue, !Mn.forceKeepAttr && (iu(Cn, V), !!Mn.keepAttr)) {
-          if (!we && Yn(/\/>/i, ge)) {
+          if (!pe && Yn(/\/>/i, ge)) {
             iu(Cn, V);
             continue;
           }
-          pe && (ge = qr(ge, W, " "), ge = qr(ge, D, " "), ge = qr(ge, B, " "));
+          we && (ge = qr(ge, W, " "), ge = qr(ge, D, " "), ge = qr(ge, B, " "));
           var lR = xt(V.nodeName);
           if (ht(lR, st, ge)) {
             if (A && (st === "id" || st === "name") && (iu(Cn, V), ge = N + ge), X && ls(p) === "object" && typeof p.getAttributeType == "function" && !mm)
@@ -1714,7 +1714,7 @@ function j1() {
     } else if (be instanceof s)
       ae = ph("<!---->"), ge = ae.ownerDocument.importNode(be, !0), ge.nodeType === 1 && ge.nodeName === "BODY" || ge.nodeName === "HTML" ? ae = ge : ae.appendChild(ge);
     else {
-      if (!Ae && !pe && !ee && // eslint-disable-next-line unicorn/prefer-includes
+      if (!Ae && !we && !ee && // eslint-disable-next-line unicorn/prefer-includes
       be.indexOf("<") === -1)
         return X && Ie ? X.createHTML(be) : be;
       if (ae = ph(be), !ae)
@@ -1735,7 +1735,7 @@ function j1() {
     }
     var Cn = ee ? ae.outerHTML : ae.innerHTML;
     return ee && T["!doctype"] && ae.ownerDocument && ae.ownerDocument.doctype && ae.ownerDocument.doctype.name && Yn(vV, ae.ownerDocument.doctype.name) && (Cn = "<!DOCTYPE " + ae.ownerDocument.doctype.name + `>
-` + Cn), pe && (Cn = qr(Cn, W, " "), Cn = qr(Cn, D, " "), Cn = qr(Cn, B, " ")), X && Ie ? X.createHTML(Cn) : Cn;
+` + Cn), we && (Cn = qr(Cn, W, " "), Cn = qr(Cn, D, " "), Cn = qr(Cn, B, " ")), X && Ie ? X.createHTML(Cn) : Cn;
   }, e.setConfig = function(be) {
     Jt(be), ye = !0;
   }, e.clearConfig = function() {
@@ -27753,16 +27753,16 @@ function jx(t, e) {
           return [];
         const se = [...ie];
         return se.sort((de, Ce) => {
-          let [we] = de, [pe] = Ce;
-          return we === pe ? 0 : we > pe ? 1 : -1;
+          let [pe] = de, [we] = Ce;
+          return pe === we ? 0 : pe > we ? 1 : -1;
         }), nn(se, (de, Ce) => {
-          let [we, pe] = Ce;
+          let [pe, we] = Ce;
           const ee = de[de.length - 1], [ye, $e] = ee, Ae = ye + $e;
-          if (we <= Ae) {
-            const Fe = Math.max(pe - (Ae - we), 0);
+          if (pe <= Ae) {
+            const Fe = Math.max(we - (Ae - pe), 0);
             ee[1] += Fe;
           } else
-            de.push([we, pe]);
+            de.push([pe, we]);
           return de;
         }, [se[0]]);
       };
@@ -27803,18 +27803,18 @@ function jx(t, e) {
           const Ce = h === "insert_col_end" ? "end" : "start";
           f = (T = f) !== null && T !== void 0 ? T : Ce === "end" ? s.countSourceCols() : 0;
           const {
-            delta: we,
-            startPhysicalIndex: pe
+            delta: pe,
+            startPhysicalIndex: we
           } = l.createCol(f, O, {
             source: _,
             mode: Ce
           });
-          if (we) {
+          if (pe) {
             if (Array.isArray(M.colHeaders)) {
-              const R = [s.toVisualColumn(pe), 0];
-              R.length += we, Array.prototype.splice.apply(M.colHeaders, R);
+              const R = [s.toVisualColumn(we), 0];
+              R.length += pe, Array.prototype.splice.apply(M.colHeaders, R);
             }
-            const $e = q.selectedRange.current(), Ae = $e == null ? void 0 : $e.from, Fe = Ae == null ? void 0 : Ae.col, Ie = s.toVisualColumn(pe);
+            const $e = q.selectedRange.current(), Ae = $e == null ? void 0 : $e.from, Fe = Ae == null ? void 0 : Ae.col, Ie = s.toVisualColumn(we);
             if (q.isSelectedByCorner())
               q.selectAll(!0, !0, {
                 disableHeadersHighlight: !0
@@ -27825,7 +27825,7 @@ function jx(t, e) {
                 col: A
               } = $e.to;
               let N = Ae.row;
-              q.isSelectedByColumnHeader() && (N = -1), q.getSelectedRange().pop(), q.setRangeStartOnly(s._createCellCoords(N, Fe + we), !0), q.setRangeEnd(s._createCellCoords(R, A + we));
+              q.isSelectedByColumnHeader() && (N = -1), q.getSelectedRange().pop(), q.setRangeStartOnly(s._createCellCoords(N, Fe + pe), !0), q.setRangeEnd(s._createCellCoords(R, A + pe));
             } else
               s._refreshBorders();
           }
@@ -27928,13 +27928,13 @@ function jx(t, e) {
      */
     populateFromArray(h, f, m, T, O) {
       let _, Y, U, ie;
-      const se = [], oe = {}, de = [], Ce = h.row, we = h.col;
+      const se = [], oe = {}, de = [], Ce = h.row, pe = h.col;
       if (Y = f.length, Y === 0)
         return !1;
-      let pe = 0, ee = 0;
-      switch (Xe(m) && (pe = m.col - we + 1, ee = m.row - Ce + 1), O) {
+      let we = 0, ee = 0;
+      switch (Xe(m) && (we = m.col - pe + 1, ee = m.row - Ce + 1), O) {
         case "shift_down":
-          const ye = sc(f), $e = ye.length, Ae = Math.max($e, pe), Fe = s.getData().slice(Ce), Ie = sc(Fe).slice(we, we + Ae);
+          const ye = sc(f), $e = ye.length, Ae = Math.max($e, we), Fe = s.getData().slice(Ce), Ie = sc(Fe).slice(pe, pe + Ae);
           for (U = 0; U < Ae; U += 1)
             if (U < $e) {
               for (_ = 0, Y = ye[U].length; _ < ee - Y; _ += 1)
@@ -27942,13 +27942,13 @@ function jx(t, e) {
               U < Ie.length ? de.push(ye[U].concat(Ie[U])) : de.push(ye[U].concat(new Array(Fe.length).fill(null)));
             } else
               de.push(ye[U % $e].concat(Ie[U]));
-          s.populateFromArray(Ce, we, sc(de));
+          s.populateFromArray(Ce, pe, sc(de));
           break;
         case "shift_right":
-          const R = f.length, A = Math.max(R, ee), N = s.getData().slice(Ce).map((ne) => ne.slice(we));
+          const R = f.length, A = Math.max(R, ee), N = s.getData().slice(Ce).map((ne) => ne.slice(pe));
           for (_ = 0; _ < A; _ += 1)
             if (_ < R) {
-              for (U = 0, ie = f[_].length; U < pe - ie; U += 1)
+              for (U = 0, ie = f[_].length; U < we - ie; U += 1)
                 f[_].push(f[_][U % ie]);
               if (_ < N.length)
                 for (let ne = 0; ne < N[_].length; ne += 1)
@@ -27957,7 +27957,7 @@ function jx(t, e) {
                 f[_].push(...new Array(N[0].length).fill(null));
             } else
               f.push(f[_ % Y].slice(0, A).concat(N[_]));
-          s.populateFromArray(Ce, we, f);
+          s.populateFromArray(Ce, pe, f);
           break;
         case "overwrite":
         default:
@@ -28056,13 +28056,13 @@ function jx(t, e) {
     };
     for (let Y = h.length - 1; Y >= 0; Y--) {
       const [U, ie, , se] = h[Y], oe = l.propToCol(ie), de = s.getCellMeta(U, oe);
-      de.type === "numeric" && typeof se == "string" && IP(se) && (h[Y][3] = L(se)), s.getCellValidator(de) && (O.addValidatorToQueue(), s.validateCell(h[Y][3], de, function(Ce, we) {
-        return function(pe) {
-          if (typeof pe != "boolean")
+      de.type === "numeric" && typeof se == "string" && IP(se) && (h[Y][3] = L(se)), s.getCellValidator(de) && (O.addValidatorToQueue(), s.validateCell(h[Y][3], de, function(Ce, pe) {
+        return function(we) {
+          if (typeof we != "boolean")
             throw new Error("Validation error: result is not boolean");
-          if (pe === !1 && we.allowInvalid === !1) {
-            _ = !1, h.splice(Ce, 1), we.valid = !0;
-            const ee = s.getCell(we.visualRow, we.visualCol);
+          if (we === !1 && pe.allowInvalid === !1) {
+            _ = !1, h.splice(Ce, 1), pe.valid = !0;
+            const ee = s.getCell(pe.visualRow, pe.visualCol);
             ee !== null && Ye(ee, M.invalidCellClassName);
           }
           O.removeValidatorFormQueue();
@@ -28475,8 +28475,8 @@ function jx(t, e) {
     U === void 0 && (U = _), ie === void 0 && (ie = Y);
     let de = "mixed";
     return xe(Math.max(Math.min(_, U), 0), Math.max(_, U), (Ce) => {
-      let we = !0;
-      return xe(Math.max(Math.min(Y, ie), 0), Math.max(Y, ie), (pe) => (oe = this.getCellMeta(Ce, pe).type, se ? we = se === oe : se = oe, we)), de = we ? oe : "mixed", we;
+      let pe = !0;
+      return xe(Math.max(Math.min(Y, ie), 0), Math.max(Y, ie), (we) => (oe = this.getCellMeta(Ce, we).type, se ? pe = se === oe : se = oe, pe)), de = pe ? oe : "mixed", pe;
     }), de;
   }, this.removeCellMeta = function(h, f, m) {
     const [T, O] = [this.toPhysicalRow(h), this.toPhysicalColumn(f)];
@@ -28704,15 +28704,15 @@ function jx(t, e) {
     } = (f = h) !== null && f !== void 0 ? f : {};
     let ie, se, oe, de;
     _ !== void 0 && (ie = _ === "top", se = !ie), Y !== void 0 && (oe = Y === "start", de = !oe);
-    let Ce = T, we = O;
+    let Ce = T, pe = O;
     if (U === void 0 || U) {
       const ye = Number.isInteger(T) && T >= 0, $e = Number.isInteger(O) && O >= 0, Ae = ye ? B(this.rowIndexMapper, T) : void 0, Fe = $e ? B(this.columnIndexMapper, O) : void 0;
       if (Ae === null || Fe === null)
         return !1;
-      Ce = ye ? s.rowIndexMapper.getRenderableFromVisualIndex(Ae) : T, we = $e ? s.columnIndexMapper.getRenderableFromVisualIndex(Fe) : O;
+      Ce = ye ? s.rowIndexMapper.getRenderableFromVisualIndex(Ae) : T, pe = $e ? s.columnIndexMapper.getRenderableFromVisualIndex(Fe) : O;
     }
-    const pe = Number.isInteger(Ce), ee = Number.isInteger(we);
-    return pe && Ce >= 0 && ee && we >= 0 ? s.view.scrollViewport(s._createCellCoords(Ce, we), ie, de, se, oe) : pe && Ce >= 0 && (ee && we < 0 || !ee) ? s.view.scrollViewportVertically(Ce, ie, se) : ee && we >= 0 && (pe && Ce < 0 || !pe) ? s.view.scrollViewportHorizontally(we, de, oe) : !1;
+    const we = Number.isInteger(Ce), ee = Number.isInteger(pe);
+    return we && Ce >= 0 && ee && pe >= 0 ? s.view.scrollViewport(s._createCellCoords(Ce, pe), ie, de, se, oe) : we && Ce >= 0 && (ee && pe < 0 || !ee) ? s.view.scrollViewportVertically(Ce, ie, se) : ee && pe >= 0 && (we && Ce < 0 || !we) ? s.view.scrollViewportHorizontally(pe, de, oe) : !1;
   }, this.scrollToFocusedCell = function() {
     let h = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : () => {
     };
@@ -30281,12 +30281,12 @@ const H6 = /* @__PURE__ */ vN(RY);
         f.push('<th scope="col"><abbr title="' + v(w, h) + '">' + v(w, h, !0) + "</abbr></th>");
       return "<thead><tr>" + (w.isRTL ? f.reverse() : f).join("") + "</tr></thead>";
     }, D = function(w, h, f, m, T, O) {
-      var _, Y, U, ie = w._o, se = f === ie.minYear, oe = f === ie.maxYear, de = '<div id="' + O + '" class="pika-title" role="heading" aria-live="assertive">', Ce, we, pe = !0, ee = !0;
+      var _, Y, U, ie = w._o, se = f === ie.minYear, oe = f === ie.maxYear, de = '<div id="' + O + '" class="pika-title" role="heading" aria-live="assertive">', Ce, pe, we = !0, ee = !0;
       for (U = [], _ = 0; _ < 12; _++)
         U.push('<option value="' + (f === T ? _ - h : 12 + _ - h) + '"' + (_ === m ? ' selected="selected"' : "") + (se && _ < ie.minMonth || oe && _ > ie.maxMonth ? ' disabled="disabled"' : "") + ">" + ie.i18n.months[_] + "</option>");
       for (Ce = '<div class="pika-label">' + ie.i18n.months[m] + '<select class="pika-select pika-select-month" tabindex="-1">' + U.join("") + "</select></div>", p(ie.yearRange) ? (_ = ie.yearRange[0], Y = ie.yearRange[1] + 1) : (_ = f - ie.yearRange, Y = 1 + f + ie.yearRange), U = []; _ < Y && _ <= ie.maxYear; _++)
         _ >= ie.minYear && U.push('<option value="' + _ + '"' + (_ === f ? ' selected="selected"' : "") + ">" + _ + "</option>");
-      return we = '<div class="pika-label">' + f + ie.yearSuffix + '<select class="pika-select pika-select-year" tabindex="-1">' + U.join("") + "</select></div>", ie.showMonthAfterYear ? de += we + Ce : de += Ce + we, se && (m === 0 || ie.minMonth >= m) && (pe = !1), oe && (m === 11 || ie.maxMonth <= m) && (ee = !1), h === 0 && (de += '<button class="pika-prev' + (pe ? "" : " is-disabled") + '" type="button">' + ie.i18n.previousMonth + "</button>"), h === w._o.numberOfMonths - 1 && (de += '<button class="pika-next' + (ee ? "" : " is-disabled") + '" type="button">' + ie.i18n.nextMonth + "</button>"), de += "</div>";
+      return pe = '<div class="pika-label">' + f + ie.yearSuffix + '<select class="pika-select pika-select-year" tabindex="-1">' + U.join("") + "</select></div>", ie.showMonthAfterYear ? de += pe + Ce : de += Ce + pe, se && (m === 0 || ie.minMonth >= m) && (we = !1), oe && (m === 11 || ie.maxMonth <= m) && (ee = !1), h === 0 && (de += '<button class="pika-prev' + (we ? "" : " is-disabled") + '" type="button">' + ie.i18n.previousMonth + "</button>"), h === w._o.numberOfMonths - 1 && (de += '<button class="pika-next' + (ee ? "" : " is-disabled") + '" type="button">' + ie.i18n.nextMonth + "</button>"), de += "</div>";
     }, B = function(w, h, f) {
       return '<table cellpadding="0" cellspacing="0" class="pika-table" role="grid" aria-labelledby="' + f + '">' + W(w) + x(h) + "</table>";
     }, z = function(w) {
@@ -30528,10 +30528,10 @@ const H6 = /* @__PURE__ */ vN(RY);
       render: function(w, h, f) {
         var m = this._o, T = new Date(), O = M(w, h), _ = new Date(w, h, 1).getDay(), Y = [], U = [];
         y(T), m.firstDay > 0 && (_ -= m.firstDay, _ < 0 && (_ += 7));
-        for (var ie = h === 0 ? 11 : h - 1, se = h === 11 ? 0 : h + 1, oe = h === 0 ? w - 1 : w, de = h === 11 ? w + 1 : w, Ce = M(oe, ie), we = O + _, pe = we; pe > 7; )
-          pe -= 7;
-        we += 7 - pe;
-        for (var ee = !1, ye = 0, $e = 0; ye < we; ye++) {
+        for (var ie = h === 0 ? 11 : h - 1, se = h === 11 ? 0 : h + 1, oe = h === 0 ? w - 1 : w, de = h === 11 ? w + 1 : w, Ce = M(oe, ie), pe = O + _, we = pe; we > 7; )
+          we -= 7;
+        pe += 7 - we;
+        for (var ee = !1, ye = 0, $e = 0; ye < pe; ye++) {
           var Ae = new Date(w, h, 1 + (ye - _)), Fe = C(this._d) ? $(Ae, this._d) : !1, Ie = $(Ae, T), R = m.events.indexOf(Ae.toDateString()) !== -1, A = ye < _ || ye >= O + _, N = 1 + (ye - _), J = h, F = w, Q = m.startRange && $(m.startRange, Ae), K = m.endRange && $(m.endRange, Ae), j = m.startRange && m.endRange && m.startRange < Ae && Ae < m.endRange, te = m.minDate && Ae < m.minDate || m.maxDate && Ae > m.maxDate || m.disableWeekends && E(Ae) || m.disableDayFn && m.disableDayFn(Ae);
           A && (ye < _ ? (N = Ce + N, J = ie, F = oe) : (N = N - O, J = se, F = de));
           var Z = {
@@ -31201,7 +31201,7 @@ var ZC = {}, Q6 = {
           return S;
         }
         (s = function S(b) {
-          var L, P, x, W, D, B, z, w, h, f, m = ee.prototype = { constructor: ee, toString: null, valueOf: null }, T = new ee(1), O = 20, _ = 4, Y = -7, U = 21, ie = -1e7, se = 1e7, oe = !1, de = 1, Ce = 0, we = { prefix: "", groupSize: 3, secondaryGroupSize: 0, groupSeparator: ",", decimalSeparator: ".", fractionGroupSize: 0, fractionGroupSeparator: " ", suffix: "" }, pe = "0123456789abcdefghijklmnopqrstuvwxyz";
+          var L, P, x, W, D, B, z, w, h, f, m = ee.prototype = { constructor: ee, toString: null, valueOf: null }, T = new ee(1), O = 20, _ = 4, Y = -7, U = 21, ie = -1e7, se = 1e7, oe = !1, de = 1, Ce = 0, pe = { prefix: "", groupSize: 3, secondaryGroupSize: 0, groupSeparator: ",", decimalSeparator: ".", fractionGroupSize: 0, fractionGroupSeparator: " ", suffix: "" }, we = "0123456789abcdefghijklmnopqrstuvwxyz";
           function ee(R, A) {
             var N, J, F, Q, K, j, te, Z, ne = this;
             if (!(ne instanceof ee))
@@ -31223,7 +31223,7 @@ var ZC = {}, Q6 = {
               }
               -1 < (Q = Z.indexOf(".")) && (Z = Z.replace(".", "")), 0 < (K = Z.search(/e/i)) ? (Q < 0 && (Q = K), Q += +Z.slice(K + 1), Z = Z.substring(0, K)) : Q < 0 && (Q = Z.length);
             } else {
-              if (G(A, 2, pe.length, "Base"), Z = String(R), A == 10)
+              if (G(A, 2, we.length, "Base"), Z = String(R), A == 10)
                 return Fe(ne = new ee(R instanceof ee ? R : Z), O + ne.e + 1, _);
               if (j = typeof R == "number") {
                 if (0 * R != 0)
@@ -31233,7 +31233,7 @@ var ZC = {}, Q6 = {
                 j = !1;
               } else
                 ne.s = Z.charCodeAt(0) === 45 ? (Z = Z.slice(1), -1) : 1;
-              for (N = pe.slice(0, A), Q = K = 0, te = Z.length; K < te; K++)
+              for (N = we.slice(0, A), Q = K = 0, te = Z.length; K < te; K++)
                 if (N.indexOf(J = Z.charAt(K)) < 0) {
                   if (J == ".") {
                     if (Q < K) {
@@ -31381,15 +31381,15 @@ var ZC = {}, Q6 = {
               if (R.hasOwnProperty(A = "MODULO_MODE") && (G(N = R[A], 0, 9, A), de = N), R.hasOwnProperty(A = "POW_PRECISION") && (G(N = R[A], 0, M, A), Ce = N), R.hasOwnProperty(A = "FORMAT")) {
                 if (typeof (N = R[A]) != "object")
                   throw Error(c + A + " not an object: " + N);
-                we = N;
+                pe = N;
               }
               if (R.hasOwnProperty(A = "ALPHABET")) {
                 if (typeof (N = R[A]) != "string" || /^.$|[+-.\s]|(.).*\1/.test(N))
                   throw Error(c + A + " invalid: " + N);
-                pe = N;
+                we = N;
               }
             }
-            return { DECIMAL_PLACES: O, ROUNDING_MODE: _, EXPONENTIAL_AT: [Y, U], RANGE: [ie, se], CRYPTO: oe, MODULO_MODE: de, POW_PRECISION: Ce, FORMAT: we, ALPHABET: pe };
+            return { DECIMAL_PLACES: O, ROUNDING_MODE: _, EXPONENTIAL_AT: [Y, U], RANGE: [ie, se], CRYPTO: oe, MODULO_MODE: de, POW_PRECISION: Ce, FORMAT: pe, ALPHABET: we };
           }, ee.isBigNumber = function(R) {
             return R instanceof ee || R && R._isBigNumber === !0 || !1;
           }, ee.maximum = ee.max = function() {
@@ -31446,7 +31446,7 @@ var ZC = {}, Q6 = {
             }
             return function(N, J, F, Q, K) {
               var j, te, Z, ne, fe, Ee, He, ke, Ge = N.indexOf("."), Rt = O, Qe = _;
-              for (0 <= Ge && (ne = Ce, Ce = 0, N = N.replace(".", ""), Ee = (ke = new ee(J)).pow(N.length - Ge), Ce = ne, ke.c = A(v($(Ee.c), Ee.e, "0"), 10, F, R), ke.e = ke.c.length), Z = ne = (He = A(N, J, F, K ? (j = pe, R) : (j = R, pe))).length; He[--ne] == 0; He.pop())
+              for (0 <= Ge && (ne = Ce, Ce = 0, N = N.replace(".", ""), Ee = (ke = new ee(J)).pow(N.length - Ge), Ce = ne, ke.c = A(v($(Ee.c), Ee.e, "0"), 10, F, R), ke.e = ke.c.length), Z = ne = (He = A(N, J, F, K ? (j = we, R) : (j = R, we))).length; He[--ne] == 0; He.pop())
                 ;
               if (!He[0])
                 return j.charAt(0);
@@ -31734,7 +31734,7 @@ var ZC = {}, Q6 = {
           }, m.toFormat = function(R, A, N) {
             var J;
             if (N == null)
-              R != null && A && typeof A == "object" ? (N = A, A = null) : R && typeof R == "object" ? (N = R, R = A = null) : N = we;
+              R != null && A && typeof A == "object" ? (N = A, A = null) : R && typeof R == "object" ? (N = R, R = A = null) : N = pe;
             else if (typeof N != "object")
               throw Error(c + "Argument not an object: " + N);
             if (J = this.toFixed(R, A), this.c) {
@@ -31762,7 +31762,7 @@ var ZC = {}, Q6 = {
             return R != null && G(R, 1, M), ye(this, R, A, 2);
           }, m.toString = function(R) {
             var A, N = this, J = N.s, F = N.e;
-            return F === null ? J ? (A = "Infinity", J < 0 && (A = "-" + A)) : A = "NaN" : (A = R == null ? F <= Y || U <= F ? re($(N.c), F) : v($(N.c), F, "0") : R === 10 ? v($((N = Fe(new ee(N), O + F + 1, _)).c), N.e, "0") : (G(R, 2, pe.length, "Base"), P(v($(N.c), F, "0"), 10, R, J, !0)), J < 0 && N.c[0] && (A = "-" + A)), A;
+            return F === null ? J ? (A = "Infinity", J < 0 && (A = "-" + A)) : A = "NaN" : (A = R == null ? F <= Y || U <= F ? re($(N.c), F) : v($(N.c), F, "0") : R === 10 ? v($((N = Fe(new ee(N), O + F + 1, _)).c), N.e, "0") : (G(R, 2, we.length, "Base"), P(v($(N.c), F, "0"), 10, R, J, !0)), J < 0 && N.c[0] && (A = "-" + A)), A;
           }, m.valueOf = m.toJSON = function() {
             return Ie(this);
           }, m._isBigNumber = !0, typeof Symbol == "function" && typeof Symbol.iterator == "symbol" && (m[Symbol.toStringTag] = "BigNumber", m[Symbol.for("nodejs.util.inspect.custom")] = m.valueOf), b != null && ee.set(b), ee;
@@ -31806,19 +31806,19 @@ var ZC = {}, Q6 = {
         var G = $.prefix || "", q = $.postfix || "", re = function(v, S, b) {
           switch (S.output) {
             case "currency":
-              return S = M(S, s.currentCurrencyDefaultFormat()), function(pe, ee, ye) {
+              return S = M(S, s.currentCurrencyDefaultFormat()), function(we, ee, ye) {
                 var $e = ye.currentCurrency(), Ae = Object.assign({}, d, ee), Fe = void 0, Ie = "", R = !!Ae.totalLength || !!Ae.forceAverage || Ae.average, A = ee.currencyPosition || $e.position, N = ee.currencySymbol || $e.symbol;
                 Ae.spaceSeparated && (Ie = " "), A === "infix" && (Fe = Ie + N + Ie);
-                var J = I({ instance: pe, providedFormat: ee, state: ye, decimalSeparator: Fe });
-                return A === "prefix" && (J = pe._value < 0 && Ae.negative === "sign" ? "-".concat(Ie).concat(N).concat(J.slice(1)) : N + Ie + J), A && A !== "postfix" || (J = J + (Ie = R ? "" : Ie) + N), J;
+                var J = I({ instance: we, providedFormat: ee, state: ye, decimalSeparator: Fe });
+                return A === "prefix" && (J = we._value < 0 && Ae.negative === "sign" ? "-".concat(Ie).concat(N).concat(J.slice(1)) : N + Ie + J), A && A !== "postfix" || (J = J + (Ie = R ? "" : Ie) + N), J;
               }(v, S, s);
             case "percent":
-              return S = M(S, s.currentPercentageDefaultFormat()), function(pe, ee, ye, $e) {
-                var Ae = ee.prefixSymbol, Fe = I({ instance: $e(100 * pe._value), providedFormat: ee, state: ye }), Ie = Object.assign({}, d, ee);
+              return S = M(S, s.currentPercentageDefaultFormat()), function(we, ee, ye, $e) {
+                var Ae = ee.prefixSymbol, Fe = I({ instance: $e(100 * we._value), providedFormat: ee, state: ye }), Ie = Object.assign({}, d, ee);
                 return Ae ? "%".concat(Ie.spaceSeparated ? " " : "").concat(Fe) : "".concat(Fe).concat(Ie.spaceSeparated ? " " : "", "%");
               }(v, S, s, b);
             case "byte":
-              return S = M(S, s.currentByteDefaultFormat()), T = v, _ = s, Y = b, U = (O = S).base || "binary", ie = c[U], se = p(T._value, ie.suffixes, ie.scale), oe = se.value, de = se.suffix, Ce = I({ instance: Y(oe), providedFormat: O, state: _, defaults: _.currentByteDefaultFormat() }), we = _.currentAbbreviations(), "".concat(Ce).concat(we.spaced ? " " : "").concat(de);
+              return S = M(S, s.currentByteDefaultFormat()), T = v, _ = s, Y = b, U = (O = S).base || "binary", ie = c[U], se = p(T._value, ie.suffixes, ie.scale), oe = se.value, de = se.suffix, Ce = I({ instance: Y(oe), providedFormat: O, state: _, defaults: _.currentByteDefaultFormat() }), pe = _.currentAbbreviations(), "".concat(Ce).concat(pe.spaced ? " " : "").concat(de);
             case "time":
               return S = M(S, s.currentTimeDefaultFormat()), w = v, h = Math.floor(w._value / 60 / 60), f = Math.floor((w._value - 60 * h * 60) / 60), m = Math.round(w._value - 60 * h * 60 - 60 * f), "".concat(h, ":").concat(f < 10 ? "0" : "").concat(f, ":").concat(m < 10 ? "0" : "").concat(m);
             case "ordinal":
@@ -31827,7 +31827,7 @@ var ZC = {}, Q6 = {
             default:
               return I({ instance: v, providedFormat: S, numbro: b });
           }
-          var L, P, x, W, D, B, z, w, h, f, m, T, O, _, Y, U, ie, se, oe, de, Ce, we;
+          var L, P, x, W, D, B, z, w, h, f, m, T, O, _, Y, U, ie, se, oe, de, Ce, pe;
         }(y, $, X);
         return re = (re = G + re) + q;
       }
@@ -31870,7 +31870,7 @@ var ZC = {}, Q6 = {
           return q.getZeroFormat();
         if (!isFinite(b))
           return b.toString();
-        var L, P, x, W, D, B, z, w, h = Object.assign({}, d, S, X), f = h.totalLength, m = f ? 0 : h.characteristic, T = h.optionalCharacteristic, O = h.forceAverage, _ = !!f || !!O || h.average, Y = f ? -1 : _ && X.mantissa === void 0 ? 0 : h.mantissa, U = !f && (X.optionalMantissa === void 0 ? Y === -1 : h.optionalMantissa), ie = h.trimMantissa, se = h.thousandSeparated, oe = h.spaceSeparated, de = h.negative, Ce = h.forceSign, we = h.exponential, pe = "";
+        var L, P, x, W, D, B, z, w, h = Object.assign({}, d, S, X), f = h.totalLength, m = f ? 0 : h.characteristic, T = h.optionalCharacteristic, O = h.forceAverage, _ = !!f || !!O || h.average, Y = f ? -1 : _ && X.mantissa === void 0 ? 0 : h.mantissa, U = !f && (X.optionalMantissa === void 0 ? Y === -1 : h.optionalMantissa), ie = h.trimMantissa, se = h.thousandSeparated, oe = h.spaceSeparated, de = h.negative, Ce = h.forceSign, pe = h.exponential, we = "";
         if (_) {
           var ee = function(R) {
             var A = R.value, N = R.forceAverage, J = R.abbreviations, F = R.spaceSeparated, Q = F !== void 0 && F, K = R.totalLength, j = K === void 0 ? 0 : K, te = "", Z = Math.abs(A), ne = -1;
@@ -31880,11 +31880,11 @@ var ZC = {}, Q6 = {
             }
             return { value: A, abbreviation: te, mantissaPrecision: ne };
           }({ value: b, forceAverage: O, abbreviations: q.currentAbbreviations(), spaceSeparated: oe, totalLength: f });
-          b = ee.value, pe += ee.abbreviation, f && (Y = ee.mantissaPrecision);
+          b = ee.value, we += ee.abbreviation, f && (Y = ee.mantissaPrecision);
         }
-        if (we) {
+        if (pe) {
           var ye = (P = (L = { value: b, characteristicPrecision: m }).value, x = L.characteristicPrecision, W = x === void 0 ? 0 : x, D = o(P.toExponential().split("e"), 2), B = D[0], z = D[1], w = +B, W && 1 < W && (w *= Math.pow(10, W - 1), z = 0 <= (z = +z - (W - 1)) ? "+".concat(z) : z), { value: w, abbreviation: "e".concat(z) });
-          b = ye.value, pe = ye.abbreviation + pe;
+          b = ye.value, we = ye.abbreviation + we;
         }
         var $e, Ae, Fe, Ie = function(R, A, N, J, F) {
           if (J === -1)
@@ -31914,7 +31914,7 @@ var ZC = {}, Q6 = {
             for (var te = J - K.length, Z = 0; Z < te; Z++)
               F = "0".concat(F);
           return F.toString();
-        }(Ie, 0, T, m), b, se, q, re), (_ || we) && (Ie = Ie + pe), (Ce || b < 0) && ($e = Ie, Fe = de, Ie = (Ae = b) === 0 ? $e : +$e == 0 ? $e.replace("-", "") : 0 < Ae ? "+".concat($e) : Fe === "sign" ? $e : "(".concat($e.replace("-", ""), ")")), Ie;
+        }(Ie, 0, T, m), b, se, q, re), (_ || pe) && (Ie = Ie + we), (Ce || b < 0) && ($e = Ie, Fe = de, Ie = (Ae = b) === 0 ? $e : +$e == 0 ? $e.replace("-", "") : 0 < Ae ? "+".concat($e) : Fe === "sign" ? $e : "(".concat($e.replace("-", ""), ")")), Ie;
       }
       function M(y, $) {
         if (!y)
@@ -53960,41 +53960,41 @@ function mN(t) {
         ;
     }
     return function(L, P, x, W, D) {
-      var B, z, w, h, f, m, T, O, _, Y, U, ie, se, oe, de, Ce, we, pe = L.s == P.s ? 1 : -1, ee = L.c, ye = P.c;
+      var B, z, w, h, f, m, T, O, _, Y, U, ie, se, oe, de, Ce, pe, we = L.s == P.s ? 1 : -1, ee = L.c, ye = P.c;
       if (!ee || !ee[0] || !ye || !ye[0])
         return new y(
           // Return NaN if either NaN, or both Infinity or 0.
           !L.s || !P.s || (ee ? ye && ee[0] == ye[0] : !ye) ? NaN : (
             // Return ±0 if x is ±0 or y is ±Infinity, or return ±Infinity as y is ±0.
-            ee && ee[0] == 0 || !ye ? pe * 0 : pe / 0
+            ee && ee[0] == 0 || !ye ? we * 0 : we / 0
           )
         );
-      for (O = new y(pe), _ = O.c = [], z = L.e - P.e, pe = x + z + 1, D || (D = si, z = Lr(L.e / Ke) - Lr(P.e / Ke), pe = pe / Ke | 0), w = 0; ye[w] == (ee[w] || 0); w++)
+      for (O = new y(we), _ = O.c = [], z = L.e - P.e, we = x + z + 1, D || (D = si, z = Lr(L.e / Ke) - Lr(P.e / Ke), we = we / Ke | 0), w = 0; ye[w] == (ee[w] || 0); w++)
         ;
-      if (ye[w] > (ee[w] || 0) && z--, pe < 0)
+      if (ye[w] > (ee[w] || 0) && z--, we < 0)
         _.push(1), h = !0;
       else {
-        for (oe = ee.length, Ce = ye.length, w = 0, pe += 2, f = Nr(D / (ye[0] + 1)), f > 1 && (ye = v(ye, f, D), ee = v(ee, f, D), Ce = ye.length, oe = ee.length), se = Ce, Y = ee.slice(0, Ce), U = Y.length; U < Ce; Y[U++] = 0)
+        for (oe = ee.length, Ce = ye.length, w = 0, we += 2, f = Nr(D / (ye[0] + 1)), f > 1 && (ye = v(ye, f, D), ee = v(ee, f, D), Ce = ye.length, oe = ee.length), se = Ce, Y = ee.slice(0, Ce), U = Y.length; U < Ce; Y[U++] = 0)
           ;
-        we = ye.slice(), we = [0].concat(we), de = ye[0], ye[1] >= D / 2 && de++;
+        pe = ye.slice(), pe = [0].concat(pe), de = ye[0], ye[1] >= D / 2 && de++;
         do {
           if (f = 0, B = S(ye, Y, Ce, U), B < 0) {
             if (ie = Y[0], Ce != U && (ie = ie * D + (Y[1] || 0)), f = Nr(ie / de), f > 1)
               for (f >= D && (f = D - 1), m = v(ye, f, D), T = m.length, U = Y.length; S(m, Y, T, U) == 1; )
-                f--, b(m, Ce < T ? we : ye, T, D), T = m.length, B = 1;
+                f--, b(m, Ce < T ? pe : ye, T, D), T = m.length, B = 1;
             else
               f == 0 && (B = f = 1), m = ye.slice(), T = m.length;
             if (T < U && (m = [0].concat(m)), b(Y, m, U, D), U = Y.length, B == -1)
               for (; S(ye, Y, Ce, U) < 1; )
-                f++, b(Y, Ce < U ? we : ye, U, D), U = Y.length;
+                f++, b(Y, Ce < U ? pe : ye, U, D), U = Y.length;
           } else
             B === 0 && (f++, Y = [0]);
           _[w++] = f, Y[0] ? Y[U++] = ee[se] || 0 : (Y = [ee[se]], U = 1);
-        } while ((se++ < oe || Y[0] != null) && pe--);
+        } while ((se++ < oe || Y[0] != null) && we--);
         h = Y[0] != null, _[0] || _.splice(0, 1);
       }
       if (D == si) {
-        for (w = 1, pe = _[0]; pe >= 10; pe /= 10, w++)
+        for (w = 1, we = _[0]; we >= 10; we /= 10, w++)
           ;
         q(O, x + (O.e = w + z * Ke - 1) + 1, W, h);
       } else
@@ -54435,22 +54435,23 @@ const ale = (t) => {
     const O = { wordWrap: !1 };
     T.forEach((_) => {
       let Y = { ...O, ..._ };
-      _.editorReactNode && (Y.editor = Wae, Y.renderNode = D, Y.renderStyle = B, Y.afterRenderEdit = W), _.rendereCell && (Y.renderer = (U, ie, se, oe, de, Ce, we) => {
-        let pe = ie.firstChild, ee = document.createElement("div");
-        return ee.setAttribute("last-data", Ce), pe ? pe.getAttribute("last-data") != Ce.toString() && (d[`index-${se}${oe}`] = {
+      _.editorReactNode && (Y.editor = Wae, Y.renderNode = D, Y.renderStyle = B, Y.afterRenderEdit = W), _.rendereCell && (Y.renderer = (U, ie, se, oe, de, Ce, pe) => {
+        let we = ie.firstChild, ee = document.createElement("div");
+        return ee.setAttribute("last-data", Ce), we ? we.getAttribute("last-data") != Ce.toString() && (d[`index-${se}${oe}`] = {
           td: ee,
-          node: _.rendereCell(Ce, we)
-        }, ie.replaceChild(ee, pe)) : (d[`index-${se}${oe}`] = {
+          node: _.rendereCell(Ce, pe)
+        }, ie.replaceChild(ee, we)) : (d[`index-${se}${oe}`] = {
           td: ee,
-          node: _.rendereCell(Ce, we)
-        }, ie.appendChild(ee)), we.className && ie.classList.add(we.className), ie;
-      }), _.required && (_.className = _.className ? `${_.className} is-required` : "is-required"), e.current.push(Y);
+          node: _.rendereCell(Ce, pe)
+        }, ie.appendChild(ee)), pe.className && ie.classList.add(pe.className), pe.required && ie.classList.add("is-required"), ie;
+      }), _.required && (_.className = _.className ? `${_.className} is-required` : "is-required", _.title = `<span class="is-required">${_.title}</span>`), e.current.push(Y);
     }), !(!t.data || t.data.length == 0) && (t.selected && t.data.forEach((_) => {
       t.isData ? _.selected = !1 : _.unshift(!1);
     }), r.current = new Be(n.current, {
-      data: !t.data || t.data.length == 0 ? [{ year: 1, momth: 1, day: 1, second: 1 }] : t.data,
+      data: !t.data || t.data.length == 0 ? [] : t.data,
       columns: e.current,
       rowHeaders: !0,
+      columnHeaderHeight: 40,
       rowHeights: 40,
       licenseKey: "non-commercial-and-evaluation",
       // for non-commercial use only
@@ -54463,7 +54464,7 @@ const ale = (t) => {
         }, 0);
       },
       afterGetColHeader: (_, Y, U) => {
-        if (_ == 0) {
+        if (t.selected && _ == 0) {
           let ie = document.createElement("div");
           Y.firstChild.firstChild.innerHTML = "", Y.firstChild.firstChild.appendChild(ie), E(ie);
         }
@@ -54472,14 +54473,14 @@ const ale = (t) => {
         let de = r.current.getSelected();
         if ((de == null ? void 0 : de.length) > 0) {
           $(de[0][2] - de[0][0] + 1), G(de[0][3] - de[0][1] + 1);
-          let Ce = r.current.getSourceDataArray(de[0][0], de[0][1], de[0][2], de[0][3]), we = [], pe = 0;
+          let Ce = r.current.getSourceDataArray(de[0][0], de[0][1], de[0][2], de[0][3]), pe = [], we = 0;
           for (let ee = 0; ee < Ce.length; ee++) {
             let ye = Ce[ee];
-            we = [...we, ...ye];
+            pe = [...pe, ...ye];
             for (let $e = 0; $e < ye.length; $e++)
-              pe = new Bd(pe).plus(ye[$e]).toNumber();
+              we = new Bd(we).plus(ye[$e]).toNumber();
           }
-          re(pe), S(new Bd(pe).div(we.length).toNumber()), x(Bd.min(...we).toNumber()), L(Bd.max(...we).toNumber());
+          re(we), S(new Bd(we).div(pe.length).toNumber()), x(Bd.min(...pe).toNumber()), L(Bd.max(...pe).toNumber());
         }
       }
     }));

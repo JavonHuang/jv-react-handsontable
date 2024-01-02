@@ -17,6 +17,7 @@ export interface Icolumns {
   width?: number,
   readOnly?: boolean,
   editor?: boolean,
+  allowInvalid?: boolean,
   wordWrap?: boolean,
   copyable?: boolean,
   copyPaste?: boolean,
