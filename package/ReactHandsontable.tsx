@@ -137,6 +137,9 @@ const ReactHandsontable = (props: IReactHandsontable) => {
           if(cellProperties.className){
             td.classList.add(cellProperties.className)
           }
+          if (cellProperties.required) {
+            td.classList.add('is-required')
+          }
           return td; 
         }
       }
@@ -159,9 +162,10 @@ const ReactHandsontable = (props: IReactHandsontable) => {
       })
     }
     rootHot.current = new Handsontable(rootRef.current!, {
-      data:!props.data|| props.data.length==0? [{year:1,momth:1,day:1,second:1}]:props.data,
+      data:!props.data|| props.data.length==0? []:props.data,
       columns: columnsRef.current,
       rowHeaders: true,
+      columnHeaderHeight: 40,
       rowHeights: 40,
       licenseKey: 'non-commercial-and-evaluation', // for non-commercial use only
       afterRender: (isForced)=>{ 
@@ -174,7 +178,7 @@ const ReactHandsontable = (props: IReactHandsontable) => {
         }, 0);
       },
       afterGetColHeader: (column, TH, headerLevel) => { 
-        if (column == 0) { 
+        if (props.selected && column == 0) { 
           let domDiv = document.createElement("div")
           TH.firstChild!.firstChild!.innerHTML=""
           TH.firstChild!.firstChild!.appendChild(domDiv)

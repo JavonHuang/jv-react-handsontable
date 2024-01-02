@@ -4,7 +4,7 @@ import { useContext, useState,useEffect } from "react";
 
 const Test = (props:any) => { 
   
-  const [yyuy, setYUYU] = useState()
+  const [defaultValue] = useState(props.originalValue)
   const reactHandsontableContext = useContext(ReactHandsontableContext)
 
   useEffect(() => { 
@@ -16,30 +16,30 @@ const Test = (props:any) => {
     event.stopPropagation();
   };
   const change=(e:any)=>{
-    setYUYU(e)
     reactHandsontableContext.setValue!(e)
   }
   return <div>
-  <Select
-    onMouseDown={onPreventMouseDown}
-    placeholder="Select a person"
-    optionFilterProp="children"
-    onChange={change}
-    options={[
-      {
-        value: 'jack',
-        label: 'Jack',
-      },
-      {
-        value: 'lucy',
-        label: 'Lucy',
-      },
-      {
-        value: 'tom',
-        label: 'Tom',
-      },
-    ]}
-  />
+    <Select
+      defaultValue={defaultValue}
+      onMouseDown={onPreventMouseDown}
+      placeholder="Select a person"
+      optionFilterProp="children"
+      onChange={change}
+      options={[
+        {
+          value: 'jack',
+          label: 'Jack',
+        },
+        {
+          value: 'lucy',
+          label: 'Lucy',
+        },
+        {
+          value: 'tom',
+          label: 'Tom',
+        },
+      ]}
+    />
   </div>
 }
 

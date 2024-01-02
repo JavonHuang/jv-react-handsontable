@@ -19,20 +19,24 @@ const MyTable = () => {
       title: '文本',
       width: 180,
       wordWrap: true,
-      className:'center',
-      required:true
+      className: 'center',
+      rendereCell: (value, cellProperties:any) => { 
+        if (cellProperties.row== 2) {
+          cellProperties.required=true
+         }
+        return value
+      }
     },
     {
       title: '身高',
       width: 80,
-      className:'center',
+      className: 'center',
       required:true
     },
     {
       title: '体重',
       width: 80,
       className:'center',
-      required:true
     },
     {
       title: '单选',
@@ -78,7 +82,7 @@ const MyTable = () => {
       //   year: yaer - i, momth: 12, day: 160+i,second:i
       // })
       let m=_.round(Math.random() * 10 + 1,2)
-      list1.push(["joijjoijoijjoijoijjoijo ijjoijoij  joijoijoij" +"jiojio",160+m,56+m,"jack","jack",dayjs('2015/01/01', 'YYYY/MM/DD'),false,false,'在上面的示例中，我们首先定义了一个包含数字的数组。然后，我们使用类型断言将该数组转换为字符串类型数组。这里有两种方式可以实现：一种是使用Array<string>类型断言，另一种是直接使用string[]类型断言。'])
+      list1.push(["joijjoijoijjoijoijjoijjoijoijoij" ,160+m,56+m,"jack","jack",dayjs('2015/01/01', 'YYYY/MM/DD'),false,false,'在上面的示例中，我们首先定义了一个包含数字的数组。然后，我们使用类型断言将该数组转换为字符串类型数组。这里有两种方式可以实现：一种是使用Array<string>类型断言，另一种是直接使用string[]类型断言。'])
     }
     setData(list1)
   }
