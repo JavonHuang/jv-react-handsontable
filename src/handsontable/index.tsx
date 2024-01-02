@@ -20,6 +20,9 @@ const MyTable = () => {
       width: 180,
       wordWrap: true,
       className: 'center',
+      validator: (value, callBack) => { 
+        callBack(false);
+      },
       rendereCell: (value, cellProperties:any) => { 
         if (cellProperties.row== 2) {
           cellProperties.required=true
@@ -28,7 +31,7 @@ const MyTable = () => {
       }
     },
     {
-      title: '身高',
+      title: '<span>身高</span>',
       width: 80,
       className: 'center',
       required:true
@@ -74,6 +77,17 @@ const MyTable = () => {
     init()
   }, []);
 
+  const emailValidator = (value:any, callback:(e: boolean) => void) => {
+    setTimeout(() => {
+      if (/.+@.+/.test(value)) {
+        callback(true);
+  
+      } else {
+        callback(false);
+      }
+    }, 1000);
+  };
+
   const init = () => {
     let list1 = [];
     let year = 2023;
@@ -89,7 +103,7 @@ const MyTable = () => {
   return <>
     <ReactHandsontable
     data={data}
-    selected
+    // selected
     columns={columns}
   >
     </ReactHandsontable>

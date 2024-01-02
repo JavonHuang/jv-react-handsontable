@@ -144,7 +144,8 @@ const ReactHandsontable = (props: IReactHandsontable) => {
         }
       }
       if(e.required){
-        e.className=e.className?`${e.className} is-required`:'is-required'
+        e.className = e.className ? `${e.className} is-required` : 'is-required'
+        e.title=`<span class="is-required">${e.title}</span>`
       }
       columnsRef.current.push(column)
     })

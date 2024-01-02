@@ -1,4 +1,4 @@
-import { tuple } from "@/components/tsTool";
+import { tuple } from "./tsTool";
 
 export interface IReactHandsontable { 
   data: []
@@ -23,5 +23,6 @@ export interface Icolumns {
   className?:IclassTypes,
   required?:boolean,
   editorReactNode?: React.ReactNode
+  validator?:(value:any, callback:(e:boolean)=>void)=>void
   rendereCell?:(value:any, cellProperties:Object) =>React.ReactNode
 }
