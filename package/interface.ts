@@ -1,10 +1,14 @@
 import { tuple } from "./tsTool";
 
+export interface IRefReactHandsontable{
+  validateFields:()=>Promise<any>
+}
 export interface IReactHandsontable { 
   data: []
   isData?:boolean
   columns: Array<Icolumns> | []
-  selected?:boolean
+  selected?:boolean,
+  onColumnWidthChange?:(newSize:number,column:number)=>void
 }
 export const classTypes = tuple('center', 'left', 'top', 'right');
 

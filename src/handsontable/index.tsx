@@ -1,7 +1,7 @@
 
 import React, { useState,useEffect,memo, useRef} from 'react'
 import ReactHandsontable from '@/../package/ReactHandsontable';
-import { Icolumns } from '@/../package/interface';
+import { IRefReactHandsontable, Icolumns } from '@/../package/interface';
 import { Button, Calendar, CalendarProps, Checkbox, DatePicker, DatePickerProps, Select, Space } from 'antd';
 import dayjs from 'dayjs';
 import Test from './test';
@@ -12,6 +12,7 @@ import _ from 'lodash';
 
 
 const MyTable = () => {
+  const refTable=useRef<IRefReactHandsontable>()
   const [dataListt, setDataList] = useState<Array<any>>([])
   const [data, setData] = useState<any>()
   const [columns, setColumns] = useState<Array<Icolumns>>([
@@ -28,14 +29,16 @@ const MyTable = () => {
         if (cellProperties.row== 2) {
           cellProperties.required=true
          }
-        return value
+         console.log(cellProperties)
+        return <span>{value}</span>
       }
     },
     {
       title: '身高',
       width: 80,
       className: 'center',
-      required:true
+      required:true,
+      
     },
     {
       title: '体重',
@@ -86,13 +89,13 @@ const MyTable = () => {
       } else {
         callback(false);
       }
-    }, 1000);
+    }, 0);
   };
 
   const init = () => {
     let list1 = [];
     let year = 2023;
-    for (let i = 0; i < 1; i++) {
+    for (let i = 0; i < 5; i++) {
       // list1.push({
       //   year: yaer - i, momth: 12, day: 160+i,second:i
       // })
@@ -101,13 +104,23 @@ const MyTable = () => {
     }
     setData(list1)
   }
+  const validate=()=>{
+    refTable.current?.validateFields().then(valid=>{
+      console.log(valid)
+    }).catch(error=>{
+      console.log(error)
+    })
+  }
   return <>
     <ReactHandsontable
     data={data}
     selected
     columns={columns}
+    onColumnWidthChange={(newSize,column)=>console.log(newSize,column)}
+    ref={refTable}
   >
     </ReactHandsontable>
+    <Button onClick={validate}>校验</Button>
   </>
 }
 export default memo(MyTable)

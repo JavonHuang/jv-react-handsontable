@@ -1,9 +1,9 @@
 
-import React, { useState,useEffect,memo, useRef, ReactElement, cloneElement} from 'react'
+import React, { useState,useEffect,memo, useRef, ReactElement, cloneElement, useImperativeHandle} from 'react'
 import "./index.scss"
 import 'handsontable/dist/handsontable.full.min.css';
 import Handsontable from 'handsontable';
-import { IReactHandsontable, Icolumns } from './interface';
+import { IReactHandsontable, IRefReactHandsontable,Icolumns } from './interface';
 import CustomEditors from './CustomEditors';
 import { ColumnSettings } from 'handsontable/settings';
 import { IhandsontableInfo, ReactHandsontableContext} from './ReactHandsontableContext';
@@ -13,7 +13,6 @@ import { Checkbox } from 'antd';
 import * as _ from 'lodash'
 import BigNumber from "bignumber.js"
 
-
 interface IcellNodeMap { 
   [key:string]: {
     td: HTMLElement
@@ -21,7 +20,7 @@ interface IcellNodeMap {
   }
 }
 
-const ReactHandsontable = (props: IReactHandsontable) => {
+const ReactHandsontable :React.ForwardRefRenderFunction<IRefReactHandsontable | undefined, IReactHandsontable> = (props, ref) => {
   const columnsRef = useRef<ColumnSettings[]>([])
   const rootRef = useRef(null)
   const rootHot = useRef<Handsontable>()
@@ -139,6 +138,9 @@ const ReactHandsontable = (props: IReactHandsontable) => {
           if (cellProperties.required) {
             td.classList.add('is-required')
           }
+          if(typeof cellProperties.valid!=='undefined' && !cellProperties.valid){
+            td.classList.add('highlight-error')
+          }
           return td; 
         }
       }
@@ -167,7 +169,8 @@ const ReactHandsontable = (props: IReactHandsontable) => {
       rowHeaders: true,
       columnHeaderHeight: 40,
       rowHeights: 40,
-      minSpareRows:5,
+      manualColumnResize: true,
+      invalidCellClassName: 'highlight-error',
       licenseKey: 'non-commercial-and-evaluation', // for non-commercial use only
       afterRender: (isForced)=>{ 
         let list:any=[]
@@ -206,6 +209,14 @@ const ReactHandsontable = (props: IReactHandsontable) => {
           setSelectMin(BigNumber.min(...list).toNumber())
           setSelectMax(BigNumber.max(...list).toNumber())
         }
+      },
+      afterSelectionEnd:(row, column, row2, column2, selectionLayerLevel)=>{
+        console.log(row, column, row2, column2, selectionLayerLevel)
+      },
+      afterColumnResize:(newSize,column)=>{
+        if(props.onColumnWidthChange){
+          props.onColumnWidthChange(newSize,column)
+        }
       }
     });
   }
@@ -236,6 +247,15 @@ const ReactHandsontable = (props: IReactHandsontable) => {
     if(!e.target.checked){
       setCheckedAll!(e.target.checked)
     }
+    //自动勾选选中的行
+    let selectArr:any = rootHot.current!.getSelected()
+    selectArr.forEach((item:Array<number>) => {
+      if(item[1]==-1){
+        for(let startRowIndex=item[0];startRowIndex<=item[2];startRowIndex++){
+          rootHot.current?.setDataAtCell([[startRowIndex,p.col,e.target.checked]])
+        }
+      }
+    });
     rootHot.current?.setDataAtCell([[p.row,p.col,e.target.checked]])
     let dataList=rootHot.current?.getData()
     let isAll=true
@@ -246,6 +266,21 @@ const ReactHandsontable = (props: IReactHandsontable) => {
     })
     setCheckedAll!(isAll)
   }
+  useImperativeHandle(ref, () => {
+    return {
+      validateFields:()=>{
+        return new Promise(( resolve, reject ) => {
+          rootHot.current?.validateCells((valid)=>{
+            if(valid){
+              resolve(valid)
+            }else{
+              reject(valid)
+            }
+          })
+        })
+      }
+    }
+  });
 
   return <ReactHandsontableContext.Provider value={{
         handsontableInfo: handsontableInfo,
@@ -274,5 +309,6 @@ const ReactHandsontable = (props: IReactHandsontable) => {
     }
   </ReactHandsontableContext.Provider>
 }
-export default ReactHandsontable
+export default React.forwardRef<IRefReactHandsontable|undefined, IReactHandsontable>(ReactHandsontable);
+
 

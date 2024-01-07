@@ -31,7 +31,7 @@
       }
       .is-required{
         position: relative;
-        &::before{
+        &::after{
           content: "";  
           position: absolute;  
           top: 0px;  
@@ -44,10 +44,13 @@
           border-bottom: 3px solid transparent;  
         }
       }
+      .highlight-error{
+        border: 1px solid red;  
+      }
       [role="columnheader"]{
         .is-required{
           position: relative;
-          &::before{
+          &::after{
             content: "*";  
             position: absolute;  
             top: 0px;  
