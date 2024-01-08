@@ -36,7 +36,7 @@ const ReactHandsontable :React.ForwardRefRenderFunction<IRefReactHandsontable | 
   const [cellNodeList, setCellNodeList] = useState<Array<{td:HTMLElement,node:React.ReactNode}>>([])
   const [checkAllNode,setCheckAllNode]=useState<Element>()
   const [checkedAll, setCheckedAll] = useState<boolean>(false)
-  
+  const selectRowIndexRef=useRef<number>(-1)
   //for foot-tool
   const [selectRowCount,setSelectRowCount]=useState<number>(0)
   const [selectColCount, setSelectColCount] = useState<number>(0)
@@ -82,7 +82,15 @@ const ReactHandsontable :React.ForwardRefRenderFunction<IRefReactHandsontable | 
   const init = () => {
     columnsRef.current = []
     let columns=[...props.columns]
-    if (props.selected) {
+    if (typeof props.selected  !== 'undefined' ) {
+      if(typeof props.selected === 'boolean'){
+        selectRowIndexRef.current=0
+      }
+      if(typeof props.selected === 'number' &&props.selected>0){
+        selectRowIndexRef.current=props.selected
+      }
+    }
+    if (selectRowIndexRef.current>-1) {
       let selectColumn:any = {
         title: '',
         width: 60,
@@ -96,7 +104,7 @@ const ReactHandsontable :React.ForwardRefRenderFunction<IRefReactHandsontable | 
       if (props.isData) { 
         selectColumn = {...selectColumn,data:'selected'}
       }
-      columns.unshift(selectColumn)
+      columns.splice(selectRowIndexRef.current, 0, selectColumn);  
     }
     //默认配置
     const defaultConfig = {wordWrap:false}
@@ -141,12 +149,14 @@ const ReactHandsontable :React.ForwardRefRenderFunction<IRefReactHandsontable | 
           if(typeof cellProperties.valid!=='undefined' && !cellProperties.valid){
             td.classList.add('highlight-error')
           }
+          console.log(cellProperties)
           return td; 
         }
       }
       if(e.required){
         e.className = e.className ? `${e.className} is-required` : 'is-required'
-        e.title=`<span class="is-required">${e.title}</span>`
+        // e.title=`<span class="is-required">${e.title}</span>`
+        // e.required=true
       }
       columnsRef.current.push(column)
     })
@@ -154,12 +164,12 @@ const ReactHandsontable :React.ForwardRefRenderFunction<IRefReactHandsontable | 
       return
     }
     //添加勾选列数据
-    if (props.selected) {
+    if (selectRowIndexRef.current>-1) {
       props.data.forEach((item: Array<any>|any) => { 
         if (props.isData) {
           item["selected"]=false
         } else { 
-          item!.unshift(false)
+          item.splice(selectRowIndexRef.current, 0, false);  
         }
       })
     }
@@ -170,8 +180,44 @@ const ReactHandsontable :React.ForwardRefRenderFunction<IRefReactHandsontable | 
       columnHeaderHeight: 40,
       rowHeights: 40,
       manualColumnResize: true,
+      enterMoves: (event)=>{
+        let selectArr:any = rootHot.current!.getSelected()
+        let allArr=rootHot.current!.getData();
+        if(allArr.length==(selectArr[0][0]+1)){
+          rootHot.current!.alter('insert_row_below');
+        }
+        return {col: 0, row: 1};
+      },
       invalidCellClassName: 'highlight-error',
       licenseKey: 'non-commercial-and-evaluation', // for non-commercial use only
+      contextMenu:{
+        callback(key, selection, clickEvent) {
+          // Common callback for all options
+          console.log(key, selection, clickEvent);
+          switch(key){
+            case 'downLoad':
+              const exportPlugin = rootHot.current!.getPlugin('exportFile');
+              exportPlugin.downloadFile('csv', {
+                bom: false,
+                columnDelimiter: ',',
+                columnHeaders: true,
+                exportHiddenColumns: true,
+                exportHiddenRows: true,
+                fileExtension: 'csv',
+                filename: 'Handsontable-CSV-file_[YYYY]-[MM]-[DD]',
+                mimeType: 'text/csv',
+                rowDelimiter: '\r\n',
+                rowHeaders: true
+              });
+            break;
+          }
+        },
+        items: {
+          'downLoad': {
+            name: '保存到本地'
+          },
+        }
+      },
       afterRender: (isForced)=>{ 
         let list:any=[]
         Object.keys(cellNodeMapRef).map((key) => {
@@ -182,11 +228,15 @@ const ReactHandsontable :React.ForwardRefRenderFunction<IRefReactHandsontable | 
         }, 0);
       },
       afterGetColHeader: (column, TH, headerLevel) => { 
-        if (props.selected && column == 0) { 
+        if (selectRowIndexRef.current>-1 && column == selectRowIndexRef.current) {
           let domDiv = document.createElement("div")
           TH.firstChild!.firstChild!.innerHTML=""
           TH.firstChild!.firstChild!.appendChild(domDiv)
           setCheckAllNode(domDiv)
+        }
+        //添加必选标记
+        if(column>-1 && columns[column].required){
+          TH.firstElementChild!.firstElementChild!.classList.add('is-required')
         }
       },
       afterSelection: (row, column, row2, column2, preventScrolling, selectionLayerLevel) => { 
@@ -209,9 +259,6 @@ const ReactHandsontable :React.ForwardRefRenderFunction<IRefReactHandsontable | 
           setSelectMin(BigNumber.min(...list).toNumber())
           setSelectMax(BigNumber.max(...list).toNumber())
         }
-      },
-      afterSelectionEnd:(row, column, row2, column2, selectionLayerLevel)=>{
-        console.log(row, column, row2, column2, selectionLayerLevel)
       },
       afterColumnResize:(newSize,column)=>{
         if(props.onColumnWidthChange){
@@ -239,7 +286,7 @@ const ReactHandsontable :React.ForwardRefRenderFunction<IRefReactHandsontable | 
   const onChangeAll = (e:any) => { 
     setCheckedAll!(e.target.checked)
     for (let row = 0; row < props.data.length; row++) { 
-      rootHot.current?.setDataAtCell([[row,0,e.target.checked]])
+      rootHot.current?.setDataAtCell([[row,selectRowIndexRef.current,e.target.checked]])
     }
   }
 
@@ -260,7 +307,7 @@ const ReactHandsontable :React.ForwardRefRenderFunction<IRefReactHandsontable | 
     let dataList=rootHot.current?.getData()
     let isAll=true
     dataList?.forEach(row=>{
-      if(!row[0]){
+      if(!row[selectRowIndexRef.current]){
         isAll=false
       }
     })

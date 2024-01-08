@@ -30,7 +30,7 @@ const MyTable = () => {
           cellProperties.required=true
          }
          console.log(cellProperties)
-        return <span>{value}</span>
+        return value
       }
     },
     {
@@ -114,7 +114,7 @@ const MyTable = () => {
   return <>
     <ReactHandsontable
     data={data}
-    selected
+    selected={2}
     columns={columns}
     onColumnWidthChange={(newSize,column)=>console.log(newSize,column)}
     ref={refTable}
