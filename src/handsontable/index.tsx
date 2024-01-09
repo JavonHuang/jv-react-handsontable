@@ -21,17 +21,10 @@ const MyTable = () => {
       width: 180,
       wordWrap: true,
       className: 'center',
-      allowInvalid: false,
+      allowInvalid: true,
       validator: (value, callBack) => { 
         emailValidator(value,callBack);
       },
-      rendereCell: (value, cellProperties:any) => { 
-        if (cellProperties.row== 2) {
-          cellProperties.required=true
-         }
-         console.log(cellProperties)
-        return value
-      }
     },
     {
       title: '身高',
@@ -39,6 +32,16 @@ const MyTable = () => {
       className: 'center',
       required:true,
       
+    },
+    {
+      title: '勾选',
+      width: 60,
+      className:"center",
+      editor: false,
+      copyable:false,
+      rendereCell: (value:any,p:any) => { 
+        return <Checkbox disabled={p.readOnly} defaultChecked={value} onChange={(e)=>onChangeItem(e,p)}></Checkbox>;
+      }
     },
     {
       title: '体重',
@@ -100,7 +103,7 @@ const MyTable = () => {
       //   year: yaer - i, momth: 12, day: 160+i,second:i
       // })
       let m=_.round(Math.random() * 10 + 1,2)
-      list1.push(["joijjoijoijjoijoijjoijjoijoijoij" ,160+m,56+m,"jack","jack",dayjs('2015/01/01', 'YYYY/MM/DD'),false,false,'在上面的示例中，我们首先定义了一个包含数字的数组。然后，我们使用类型断言将该数组转换为字符串类型数组。这里有两种方式可以实现：一种是使用Array<string>类型断言，另一种是直接使用string[]类型断言。'])
+      list1.push(["joijjoijoijjoijoijjoijjoijoijoij" ,160+m,false,56+m,"jack","jack",dayjs('2015/01/01', 'YYYY/MM/DD'),false,false,'在上面的示例中，我们首先定义了一个包含数字的数组。然后，我们使用类型断言将该数组转换为字符串类型数组。这里有两种方式可以实现：一种是使用Array<string>类型断言，另一种是直接使用string[]类型断言。'])
     }
     setData(list1)
   }
@@ -114,7 +117,7 @@ const MyTable = () => {
   return <>
     <ReactHandsontable
     data={data}
-    selected={2}
+    selected
     columns={columns}
     onColumnWidthChange={(newSize,column)=>console.log(newSize,column)}
     ref={refTable}

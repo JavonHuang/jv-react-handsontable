@@ -45,6 +45,10 @@ const ReactHandsontable :React.ForwardRefRenderFunction<IRefReactHandsontable | 
   const [selectMax,setSelectMax]=useState<number|undefined>(0)
   const [selectMin,setSelectMin]=useState<number|undefined>(0)
 
+  //for row header render
+  let rowHeaderNodeMapRef: IcellNodeMap | any = {}
+  const [rowHeaderNodeList,setRowHeaderNodeList]= useState<Array<{td:HTMLElement,node:React.ReactNode}>>([])
+
 
   useEffect(() => {
     init()
@@ -82,30 +86,30 @@ const ReactHandsontable :React.ForwardRefRenderFunction<IRefReactHandsontable | 
   const init = () => {
     columnsRef.current = []
     let columns=[...props.columns]
-    if (typeof props.selected  !== 'undefined' ) {
-      if(typeof props.selected === 'boolean'){
-        selectRowIndexRef.current=0
-      }
-      if(typeof props.selected === 'number' &&props.selected>0){
-        selectRowIndexRef.current=props.selected
-      }
-    }
-    if (selectRowIndexRef.current>-1) {
-      let selectColumn:any = {
-        title: '',
-        width: 60,
-        className:"center",
-        editor: false,
-        copyable:false,
-        rendereCell: (value:any,p:any) => { 
-          return <Checkbox disabled={p.readOnly} defaultChecked={value} onChange={(e)=>onChangeItem(e,p)}></Checkbox>;
-        }
-      }
-      if (props.isData) { 
-        selectColumn = {...selectColumn,data:'selected'}
-      }
-      columns.splice(selectRowIndexRef.current, 0, selectColumn);  
-    }
+    // if (typeof props.selected  !== 'undefined' ) {
+    //   if(typeof props.selected === 'boolean'){
+    //     selectRowIndexRef.current=0
+    //   }
+    //   if(typeof props.selected === 'number' &&props.selected>0){
+    //     selectRowIndexRef.current=props.selected
+    //   }
+    // }
+    // if (selectRowIndexRef.current>-1) {
+    //   let selectColumn:any = {
+    //     title: '',
+    //     width: 60,
+    //     className:"center",
+    //     editor: false,
+    //     copyable:false,
+    //     rendereCell: (value:any,p:any) => { 
+    //       return <Checkbox disabled={p.readOnly} defaultChecked={value}></Checkbox>;
+    //     }
+    //   }
+    //   if (props.isData) { 
+    //     selectColumn = {...selectColumn,data:'selected'}
+    //   }
+    //   columns.splice(selectRowIndexRef.current, 0, selectColumn);  
+    // }
     //默认配置
     const defaultConfig = {wordWrap:false}
     
@@ -149,7 +153,6 @@ const ReactHandsontable :React.ForwardRefRenderFunction<IRefReactHandsontable | 
           if(typeof cellProperties.valid!=='undefined' && !cellProperties.valid){
             td.classList.add('highlight-error')
           }
-          console.log(cellProperties)
           return td; 
         }
       }
@@ -164,15 +167,15 @@ const ReactHandsontable :React.ForwardRefRenderFunction<IRefReactHandsontable | 
       return
     }
     //添加勾选列数据
-    if (selectRowIndexRef.current>-1) {
-      props.data.forEach((item: Array<any>|any) => { 
-        if (props.isData) {
-          item["selected"]=false
-        } else { 
-          item.splice(selectRowIndexRef.current, 0, false);  
-        }
-      })
-    }
+    // if (selectRowIndexRef.current>-1) {
+    //   props.data.forEach((item: Array<any>|any) => { 
+    //     if (props.isData) {
+    //       item["selected"]=false
+    //     } else { 
+    //       item.splice(selectRowIndexRef.current, 0, false);  
+    //     }
+    //   })
+    // }
     rootHot.current = new Handsontable(rootRef.current!, {
       data:!props.data|| props.data.length==0? []:props.data,
       columns: columnsRef.current,
@@ -193,7 +196,6 @@ const ReactHandsontable :React.ForwardRefRenderFunction<IRefReactHandsontable | 
       contextMenu:{
         callback(key, selection, clickEvent) {
           // Common callback for all options
-          console.log(key, selection, clickEvent);
           switch(key){
             case 'downLoad':
               const exportPlugin = rootHot.current!.getPlugin('exportFile');
@@ -223,17 +225,26 @@ const ReactHandsontable :React.ForwardRefRenderFunction<IRefReactHandsontable | 
         Object.keys(cellNodeMapRef).map((key) => {
           list.push(cellNodeMapRef[key])
         }) 
-        setTimeout(() => {
-          setCellNodeList(list)
-        }, 0);
+        if(props.selected){
+          Object.keys(rowHeaderNodeMapRef).map((key) => {
+            list.push(rowHeaderNodeMapRef[key])
+          }) 
+        }
+        setCellNodeList(list)
       },
       afterGetColHeader: (column, TH, headerLevel) => { 
-        if (selectRowIndexRef.current>-1 && column == selectRowIndexRef.current) {
-          let domDiv = document.createElement("div")
-          TH.firstChild!.firstChild!.innerHTML=""
-          TH.firstChild!.firstChild!.appendChild(domDiv)
-          setCheckAllNode(domDiv)
+        if(props.selected && column==-1){
+          rowHeaderNodeMapRef[`index-${-1}`]={
+            td: TH.firstElementChild?.firstElementChild,
+            node:<Checkbox></Checkbox>
+          }
         }
+        // if (selectRowIndexRef.current>-1 && column == selectRowIndexRef.current) {
+        //   let domDiv = document.createElement("div")
+        //   TH.firstChild!.firstChild!.innerHTML=""
+        //   TH.firstChild!.firstChild!.appendChild(domDiv)
+        //   setCheckAllNode(domDiv)
+        // }
         //添加必选标记
         if(column>-1 && columns[column].required){
           TH.firstElementChild!.firstElementChild!.classList.add('is-required')
@@ -248,7 +259,7 @@ const ReactHandsontable :React.ForwardRefRenderFunction<IRefReactHandsontable | 
           let list: Array<number> = []
           let sum=0
           for (let row = 0; row < arrayData.length; row++) { 
-            let coList = arrayData[row]
+            let coList = arrayData[row]??[]
             list = [...list, ...coList]
             for (let col = 0; col < coList.length; col++) { 
               sum=new BigNumber(sum).plus(coList[col]).toNumber();
@@ -263,6 +274,14 @@ const ReactHandsontable :React.ForwardRefRenderFunction<IRefReactHandsontable | 
       afterColumnResize:(newSize,column)=>{
         if(props.onColumnWidthChange){
           props.onColumnWidthChange(newSize,column)
+        }
+      },
+      afterGetRowHeader:(row,TH)=>{
+        if(props.selected){
+          rowHeaderNodeMapRef[`index-${row}`]={
+            td: TH.firstElementChild?.firstElementChild,
+            node:<Checkbox></Checkbox>
+          }
         }
       }
     });
@@ -283,36 +302,36 @@ const ReactHandsontable :React.ForwardRefRenderFunction<IRefReactHandsontable | 
       return null
     }
   }
-  const onChangeAll = (e:any) => { 
-    setCheckedAll!(e.target.checked)
-    for (let row = 0; row < props.data.length; row++) { 
-      rootHot.current?.setDataAtCell([[row,selectRowIndexRef.current,e.target.checked]])
-    }
-  }
+  // const onChangeAll = (e:any) => { 
+  //   setCheckedAll!(e.target.checked)
+  //   for (let row = 0; row < props.data.length; row++) { 
+  //     rootHot.current?.setDataAtCell([[row,selectRowIndexRef.current,e.target.checked]])
+  //   }
+  // }
 
-  const onChangeItem = (e:any,p:any) => { 
-    if(!e.target.checked){
-      setCheckedAll!(e.target.checked)
-    }
-    //自动勾选选中的行
-    let selectArr:any = rootHot.current!.getSelected()
-    selectArr.forEach((item:Array<number>) => {
-      if(item[1]==-1){
-        for(let startRowIndex=item[0];startRowIndex<=item[2];startRowIndex++){
-          rootHot.current?.setDataAtCell([[startRowIndex,p.col,e.target.checked]])
-        }
-      }
-    });
-    rootHot.current?.setDataAtCell([[p.row,p.col,e.target.checked]])
-    let dataList=rootHot.current?.getData()
-    let isAll=true
-    dataList?.forEach(row=>{
-      if(!row[selectRowIndexRef.current]){
-        isAll=false
-      }
-    })
-    setCheckedAll!(isAll)
-  }
+  // const onChangeItem = (e:any,p:any) => { 
+  //   if(!e.target.checked){
+  //     setCheckedAll!(e.target.checked)
+  //   }
+  //   //自动勾选选中的行
+  //   let selectArr:any = rootHot.current!.getSelected()
+  //   selectArr.forEach((item:Array<number>) => {
+  //     if(item[1]==-1){
+  //       for(let startRowIndex=item[0];startRowIndex<=item[2];startRowIndex++){
+  //         rootHot.current?.setDataAtCell([[startRowIndex,p.col,e.target.checked]])
+  //       }
+  //     }
+  //   });
+  //   rootHot.current?.setDataAtCell([[p.row,p.col,e.target.checked]])
+  //   let dataList=rootHot.current?.getData()
+  //   let isAll=true
+  //   dataList?.forEach(row=>{
+  //     if(!row[selectRowIndexRef.current]){
+  //       isAll=false
+  //     }
+  //   })
+  //   setCheckedAll!(isAll)
+  // }
   useImperativeHandle(ref, () => {
     return {
       validateFields:()=>{

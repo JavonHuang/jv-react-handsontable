@@ -7,7 +7,7 @@ export interface IReactHandsontable {
   data: []
   isData?:boolean
   columns: Array<Icolumns> | []
-  selected?:boolean|number,
+  selected?:boolean,
   onColumnWidthChange?:(newSize:number,column:number)=>void
 }
 export const classTypes = tuple('center', 'left', 'top', 'right');
