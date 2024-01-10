@@ -5,6 +5,7 @@ import 'handsontable/dist/handsontable.full.min.css';
 import Handsontable from 'handsontable';
 import { IReactHandsontable, IRefReactHandsontable,Icolumns } from './interface';
 import CustomEditors from './CustomEditors';
+import RowCheckbox from "./userPlugins/RowCheckbox";
 import { ColumnSettings } from 'handsontable/settings';
 import { IhandsontableInfo, ReactHandsontableContext} from './ReactHandsontableContext';
 import Core from 'handsontable/core';
@@ -46,8 +47,6 @@ const ReactHandsontable :React.ForwardRefRenderFunction<IRefReactHandsontable | 
   const [selectMin,setSelectMin]=useState<number|undefined>(0)
 
   //for row header render
-  let rowHeaderNodeMapRef: IcellNodeMap | any = {}
-  const [rowHeaderNodeList,setRowHeaderNodeList]= useState<Array<{td:HTMLElement,node:React.ReactNode}>>([])
 
 
   useEffect(() => {
@@ -179,7 +178,10 @@ const ReactHandsontable :React.ForwardRefRenderFunction<IRefReactHandsontable | 
     rootHot.current = new Handsontable(rootRef.current!, {
       data:!props.data|| props.data.length==0? []:props.data,
       columns: columnsRef.current,
-      rowHeaders: true,
+      // rowHeaders: true,
+      rowHeaders: function(visualRowIndex) {
+        return `<div id="row-${visualRowIndex}">${visualRowIndex}${RowCheckbox.getDom(visualRowIndex)}</div>`;
+      },
       columnHeaderHeight: 40,
       rowHeights: 40,
       manualColumnResize: true,
@@ -221,24 +223,22 @@ const ReactHandsontable :React.ForwardRefRenderFunction<IRefReactHandsontable | 
         }
       },
       afterRender: (isForced)=>{ 
-        let list:any=[]
-        Object.keys(cellNodeMapRef).map((key) => {
-          list.push(cellNodeMapRef[key])
-        }) 
-        if(props.selected){
-          Object.keys(rowHeaderNodeMapRef).map((key) => {
-            list.push(rowHeaderNodeMapRef[key])
+        // if (isForced) { 
+          let list:any=[]
+          Object.keys(cellNodeMapRef).map((key) => {
+            list.push(cellNodeMapRef[key])
           }) 
-        }
         setCellNodeList(list)
+        // console.log("afterRender",isForced)
+
       },
       afterGetColHeader: (column, TH, headerLevel) => { 
-        if(props.selected && column==-1){
-          rowHeaderNodeMapRef[`index-${-1}`]={
-            td: TH.firstElementChild?.firstElementChild,
-            node:<Checkbox></Checkbox>
-          }
-        }
+        // if(props.selected && column==-1){
+        //   rowHeaderNodeMapRef[`index-${-1}`]={
+        //     td: TH.firstElementChild?.firstElementChild,
+        //     node:<Checkbox key={new Date().getDate()}></Checkbox>
+        //   }
+        // }
         // if (selectRowIndexRef.current>-1 && column == selectRowIndexRef.current) {
         //   let domDiv = document.createElement("div")
         //   TH.firstChild!.firstChild!.innerHTML=""
@@ -248,6 +248,10 @@ const ReactHandsontable :React.ForwardRefRenderFunction<IRefReactHandsontable | 
         //添加必选标记
         if(column>-1 && columns[column].required){
           TH.firstElementChild!.firstElementChild!.classList.add('is-required')
+        }
+        if (column==-1) { 
+          // TH.firstElementChild!.firstElementChild!.innerHTML
+          RowCheckbox.createCheckbox(-1, TH.firstElementChild!.firstElementChild!)
         }
       },
       afterSelection: (row, column, row2, column2, preventScrolling, selectionLayerLevel) => { 
@@ -276,15 +280,27 @@ const ReactHandsontable :React.ForwardRefRenderFunction<IRefReactHandsontable | 
           props.onColumnWidthChange(newSize,column)
         }
       },
-      afterGetRowHeader:(row,TH)=>{
-        if(props.selected){
-          rowHeaderNodeMapRef[`index-${row}`]={
-            td: TH.firstElementChild?.firstElementChild,
-            node:<Checkbox></Checkbox>
-          }
-        }
+      afterGetRowHeader: (row, TH) => {
+        console.log("afterGetRowHeader", row)
+        RowCheckbox.addEventListener(row,TH)
+        // let list:any=[]
+        // if(props.selected){
+        //   rowHeaderNodeMapRef[`index-${row}`]={
+        //     td: TH.firstElementChild?.firstElementChild,
+        //     node:<Checkbox></Checkbox>
+        //   }
+        //   list.push({
+        //     td: TH.firstElementChild?.firstElementChild,
+        //     node:<Checkbox></Checkbox>
+        //   })
+        // }
+        // TH.firstElementChild!.firstElementChild!.innerHTML='<label class="ant-checkbox-wrapper css-dev-only-do-not-override-2rgkd4"><span class="ant-checkbox ant-wave-target css-dev-only-do-not-override-2rgkd4"><input class="ant-checkbox-input" type="checkbox"><span class="ant-checkbox-inner"></span></span></label>'
+      },
+      afterViewRender: (isForced) => { 
+        // console.log("afterViewRender", isForced)
       }
     });
+    RowCheckbox.setHot(rootHot.current)
   }
 
   const setValue = (value: any, close: boolean = true) => { 
