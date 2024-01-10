@@ -178,10 +178,9 @@ const ReactHandsontable :React.ForwardRefRenderFunction<IRefReactHandsontable | 
     rootHot.current = new Handsontable(rootRef.current!, {
       data:!props.data|| props.data.length==0? []:props.data,
       columns: columnsRef.current,
-      // rowHeaders: true,
-      rowHeaders: function(visualRowIndex) {
-        return `<div id="row-${visualRowIndex}">${visualRowIndex}${RowCheckbox.getDom(visualRowIndex)}</div>`;
-      },
+      rowHeaders:props.selected? function(visualRowIndex) {
+        return `<div>${visualRowIndex}${RowCheckbox.getDom(visualRowIndex)}</div>`;
+      }:true,
       columnHeaderHeight: 40,
       rowHeights: 40,
       manualColumnResize: true,
