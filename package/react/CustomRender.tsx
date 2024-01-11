@@ -1,6 +1,6 @@
-import { ReactElement, ReactNode, cloneElement, memo } from "react";
+import { ReactElement, ReactNode, cloneElement, memo, useEffect } from "react";
 interface ICustomRender { 
-  children: ReactElement
+  children?: ReactElement
 }
 const CustomRender = (props:ICustomRender|any) => {
   // the available renderer-related props are:
@@ -13,10 +13,16 @@ const CustomRender = (props:ICustomRender|any) => {
     height:props.cellProperties.rowHeights-2+'px'
   };
 
-  console.log(props.cellProperties)
+  useEffect(()=>{
+    console.log( props.cellProperties.valid)
+  },[
+    props.cellProperties.valid
+  ])
+
+  // console.log(props.cellProperties)
   return (
-    <div style={containerStyle}>
-      {cloneElement(props.children,props)}
+    <div style={containerStyle} className={props.cellProperties.reqiured?'jv-cell is-reqiured':'jv-cell'}>
+      {props.children?cloneElement(props.children,props):props.value}
     </div>
   );
 }
