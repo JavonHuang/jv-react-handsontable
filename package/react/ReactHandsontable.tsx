@@ -71,6 +71,7 @@ const ReactHandsontable: React.ForwardRefRenderFunction<IRefReactHandsontable | 
       validateFields:()=>{
         return new Promise(( resolve, reject ) => {
           rootHot.current?.__hotInstance!.validateCells((valid)=>{
+            rootHot.current?.__hotInstance!.render()
             if(valid){
               resolve(valid)
             }else{
@@ -93,7 +94,7 @@ const ReactHandsontable: React.ForwardRefRenderFunction<IRefReactHandsontable | 
         ref={rootHot}
         data={props.data}
         columnHeaderHeight={40}
-        // invalidCellClassName= {'highlight-error'}
+        invalidCellClassName= {'highlight-error'}
         rowHeaders={props.selected? function(visualRowIndex) {
           return `<div>${visualRowIndex}${RowCheckbox.getDom(visualRowIndex)}</div>`;
         }:true}

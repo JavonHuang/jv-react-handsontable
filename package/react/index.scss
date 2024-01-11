@@ -31,6 +31,9 @@
   }
   td{
     .jv-cell{
+      &.highlight-error{
+        border: 1px solid red;  
+      }
       // padding:0 2px;
       &.is-reqiured{
         position: relative;
