@@ -1,4 +1,4 @@
-import { ReactHandsontableContext } from "@/../package/ReactHandsontableContext";
+import { ReactHandsontableContext } from "@/../package/js/ReactHandsontableContext";
 import { DatePicker, DatePickerProps } from "antd";
 import { useContext, useState } from "react";
 

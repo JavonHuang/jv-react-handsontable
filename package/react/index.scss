@@ -1,0 +1,18 @@
+.react-handsontable{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  box-sizing: border-box;
+  overflow: hidden;
+  padding: 20px;
+  flex-direction: column;
+  
+  .foot-tool{
+    height: 40px;
+    line-height: 40px;
+    color: #373737;
+    flex-wrap: nowrap;
+    text-align: right;
+  }
+}
+

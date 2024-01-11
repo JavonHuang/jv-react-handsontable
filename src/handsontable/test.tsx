@@ -1,4 +1,4 @@
-import { ReactHandsontableContext } from "@/../package/ReactHandsontableContext";
+import { ReactHandsontableContext } from "@/../package/js/ReactHandsontableContext";
 import { Select } from "antd";
 import { useContext, useState,useEffect } from "react";
 

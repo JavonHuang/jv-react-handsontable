@@ -1,4 +1,4 @@
-import { ReactHandsontableContext } from "@/../package/ReactHandsontableContext";
+import { ReactHandsontableContext } from "@/../package/js/ReactHandsontableContext";
 import { Checkbox } from "antd";
 import { useContext, useState } from "react";
 

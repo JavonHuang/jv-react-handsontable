@@ -1,7 +1,7 @@
 
 import React, { useState,useEffect,memo, useRef} from 'react'
-import ReactHandsontable from '@/../package/ReactHandsontable';
-import { IRefReactHandsontable, Icolumns } from '@/../package/interface';
+import ReactHandsontable from '@/../package/js/ReactHandsontable';
+import { IRefReactHandsontable, Icolumns } from '@/../package/js/interface';
 import { Button, Calendar, CalendarProps, Checkbox, DatePicker, DatePickerProps, Select, Space } from 'antd';
 import dayjs from 'dayjs';
 import Test from './test';
