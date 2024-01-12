@@ -13,7 +13,6 @@ const CustomRender = (props:ICustomRender|any) => {
     height:props.cellProperties.rowHeights-2+'px'
   };
 
-  console.log(props.cellProperties.row,props.cellProperties.valid)
   return <div style={containerStyle} className={[props.cellProperties.reqiured?'jv-cell is-reqiured':'jv-cell',props.cellProperties.valid===false?props.cellProperties.invalidCellClassName:''].join(' ')}>
       {props.children?cloneElement(props.children,props):props.value}
     </div>

@@ -11,6 +11,8 @@ import CustomRender from 'package/react/CustomRender';
 import ReactHandsontable from 'package/react/ReactHandsontable';
 import Uselect from "./select"
 import RendererComponent from './RendererComponent';
+import Mselect from './Mselect';
+import MCheckBox from './MCheckBox';
 
 const MyTable = () => {
   const rootMyTable = useRef(null)
@@ -34,12 +36,12 @@ const MyTable = () => {
   const init = () => {
     let list1 = [];
     let year = 2023;
-    for (let i = 0; i < 500; i++) {
+    for (let i = 0; i < 2; i++) {
       // list1.push({
       //   year: yaer - i, momth: 12, day: 160+i,second:i
       // })
       let m=_.round(Math.random() * 10 + 1,2)
-      list1.push(["joijjoijoijjoijoijjoijjoijoijoij" ,160+m,56+m,"jack","jack",dayjs('2015/01/01', 'YYYY/MM/DD'),false,false,'断言。'])
+      list1.push(["joijjoijoijjoijoijjoijjoijoijoij" ,false,160+m,56+m,"jack","jack",dayjs('2015/01/01', 'YYYY/MM/DD'),false,false,'断言。'])
     }
     setData(list1)
   }
@@ -73,38 +75,25 @@ const MyTable = () => {
     <ReactHandsontable
       ref={rootMyTable}
       data={data}
-      selected
+      selected={false}
+      onColumnWidthChange={(newSize,column)=>console.log(newSize,column)}
     >
       <HotColumn width={250} title='文本'>
         <CustomEditors hot-editor >
           <Uselect></Uselect>
         </CustomEditors>
-        {/* <CustomRender hot-renderer>
+        <CustomRender hot-renderer>
           <RendererComponent></RendererComponent>
-        </CustomRender> */}
+        </CustomRender>
       </HotColumn>
-      <HotColumn width={200} title='身高' wordWrap={ false} >
+      <HotColumn width={200} title='勾选'>
+        <CustomRender hot-renderer>
+          <MCheckBox/>
+        </CustomRender>
+      </HotColumn>
+      <HotColumn width={200} title='身高' wordWrap={ false}>
         <CustomEditors hot-editor >
-          <Select
-            placeholder="Select a person"
-            mode="multiple"
-
-            optionFilterProp="children"
-            options={[
-              {
-                value: 'jack',
-                label: 'Jack',
-              },
-              {
-                value: 'lucy',
-                label: 'Lucy',
-              },
-              {
-                value: 'tom',
-                label: 'Tom',
-              },
-            ]}
-          />
+          <Mselect/>
         </CustomEditors>
       </HotColumn>
       <HotColumn width={200} title='身高' reqiured={ true} allowInvalid={true} validator={emptyValidator}>

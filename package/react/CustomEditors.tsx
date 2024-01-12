@@ -21,7 +21,8 @@ export default class CustomEditors extends BaseEditorComponent {
     };
     this.state = {
       value: null,
-      children:null
+      children: null,
+      open:false
     };
   }
   
@@ -41,12 +42,16 @@ export default class CustomEditors extends BaseEditorComponent {
     this.mainElementRef.current.style.display = 'block';
     this.setState((state, props) => {
       return {
+        open:true,
         children: cloneElement(this.props.children,this)
       };
     });
   }
 
   close() {
+    this.setState({
+      open:false,
+    })
     this.mainElementRef.current.style.display = 'none';
   }
 
@@ -104,7 +109,7 @@ export default class CustomEditors extends BaseEditorComponent {
           onMouseDown={this.stopMousedownPropagation}
           id="editorElement"
         >
-        {this.state.children }
+        {this.state.open && this.state.children }
         </div>
     );
   }

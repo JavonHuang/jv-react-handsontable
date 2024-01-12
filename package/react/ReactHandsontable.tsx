@@ -1,10 +1,12 @@
 
 import React, { useState,useEffect,memo, useRef, ReactElement, cloneElement, useImperativeHandle} from 'react'
 import "./index.scss"
+import { registerAllModules } from 'handsontable/registry';
+
 import 'handsontable/dist/handsontable.full.min.css';
-import { IReactHandsontable, IRefReactHandsontable,Icolumns } from './interface';
+import { IReactHandsontable, IRefReactHandsontable } from './interface';
 import RowCheckbox from "./userPlugins/RowCheckbox";
-import { IhandsontableInfo, ReactHandsontableContext} from './ReactHandsontableContext';
+import {  ReactHandsontableContext} from './ReactHandsontableContext';
 import * as _ from 'lodash'
 import BigNumber from "bignumber.js"
 import HotTable from '@handsontable/react';
@@ -25,14 +27,17 @@ const ReactHandsontable: React.ForwardRefRenderFunction<IRefReactHandsontable | 
   const [selectMean,setSelectMean]=useState<number>(0)
   const [selectMax,setSelectMax]=useState<number|undefined>(0)
   const [selectMin, setSelectMin] = useState<number | undefined>(0)
+  registerAllModules();
 
   useEffect(() => { 
     if(rootHot.current&& props.data){}
     rootHot.current&& props.data&& RowCheckbox.setHot(rootHot.current!,props.data) 
   },[props.data])
 
-  useEffect(()=>{
-    RowCheckbox.createCheckbox(checkedAllRef.current!)
+  useEffect(() => {
+    if (props.selected) { 
+      RowCheckbox.createCheckbox(checkedAllRef.current!)
+    }
   },[])
   
   const afterGetColHeader = (column, TH, headerLevel) => {
@@ -41,15 +46,17 @@ const ReactHandsontable: React.ForwardRefRenderFunction<IRefReactHandsontable | 
     }
   }
 
-  const afterGetRowHeader= (row, TH) => {
-    RowCheckbox.addEventListener(row,TH)
+  const afterGetRowHeader = (row, TH) => {
+    if (props.selected) { 
+      RowCheckbox.addEventListener(row,TH)
+    }
   }
   const afterSelection=(row, column, row2, column2, preventScrolling, selectionLayerLevel) => { 
-    let arra:any = rootHot.current!.__hotInstance!.getSelected()
+    let arra:any = rootHot.current!.hotInstance!.getSelected()
     if (arra?.length > 0) { 
       setSelectRowCount((arra[0][2] - arra[0][0]) + 1)
       setSelectColCount((arra[0][3] - arra[0][1]) + 1)
-      let arrayData = rootHot.current!.__hotInstance!.getSourceDataArray(arra[0][0], arra[0][1], arra[0][2], arra[0][3])
+      let arrayData = rootHot.current!.hotInstance!.getSourceDataArray(arra[0][0], arra[0][1], arra[0][2], arra[0][3])
       let list: Array<number> = []
       let sum=0
       for (let row = 0; row < arrayData.length; row++) { 
@@ -66,12 +73,18 @@ const ReactHandsontable: React.ForwardRefRenderFunction<IRefReactHandsontable | 
     }
   }
 
+  const afterColumnResize=(newSize,column)=>{
+    if(props.onColumnWidthChange){
+      props.onColumnWidthChange(newSize,column)
+    }
+  }
+
   useImperativeHandle(ref, () => {
     return {
       validateFields:()=>{
         return new Promise(( resolve, reject ) => {
-          rootHot.current?.__hotInstance!.validateCells((valid)=>{
-            rootHot.current?.__hotInstance!.render()
+          rootHot.current?.hotInstance!.validateCells((valid)=>{
+            rootHot.current?.hotInstance!.render()
             if(valid){
               resolve(valid)
             }else{
@@ -93,22 +106,62 @@ const ReactHandsontable: React.ForwardRefRenderFunction<IRefReactHandsontable | 
       <HotTable
         ref={rootHot}
         data={props.data}
+        autoWrapRow={true}
+        autoWrapCol={true}
+        manualColumnResize={true}
         columnHeaderHeight={40}
-        invalidCellClassName= {'highlight-error'}
-        rowHeaders={props.selected? function(visualRowIndex) {
+        invalidCellClassName={'highlight-error'}
+        rowHeaders={props.selected ? function (visualRowIndex) {
           return `<div>${visualRowIndex}${RowCheckbox.getDom(visualRowIndex)}</div>`;
-        }:true}
+        } : true}
         height="100%"
         width="100%"
         rowHeights='50'
+        minRows={0}
         afterGetColHeader={afterGetColHeader}
         afterGetRowHeader={afterGetRowHeader}
         afterSelection={afterSelection}
+        afterColumnResize={afterColumnResize}
+        enterMoves={(event) => {
+          let selectArr: any = rootHot.current!.hotInstance!.getSelected()
+          let allArr =rootHot.current!.hotInstance!.getData();
+          if (allArr.length == (selectArr[0][0] + 1)) {
+            rootHot.current!.hotInstance!.alter('insert_row_below');
+          }
+          return { col: 0, row: 1 };
+        }}
+        contextMenu={{
+          callback(key, selection, clickEvent) {
+            // Common callback for all options
+            switch (key) {
+              case 'downLoad':
+                const exportPlugin = rootHot.current!.hotInstance!.getPlugin('exportFile');
+                exportPlugin.downloadFile('csv', {
+                  bom: false,
+                  columnDelimiter: ',',
+                  columnHeaders: true,
+                  exportHiddenColumns: true,
+                  exportHiddenRows: true,
+                  fileExtension: 'csv',
+                  filename: 'Handsontable-CSV-file_[YYYY]-[MM]-[DD]',
+                  mimeType: 'text/csv',
+                  rowDelimiter: '\r\n',
+                  rowHeaders: true
+                });
+                break;
+            }
+          },
+          items: {
+            'downLoad': {
+              name: '保存到本地'
+            },
+          }
+        }}
         licenseKey="non-commercial-and-evaluation" // for non-commercial use only
       >
         { props.children}
-    </HotTable>
-    <div className='all-checkbox' ref={checkedAllRef}></div>
+      </HotTable>
+      { props.selected && <div className='all-checkbox' ref={checkedAllRef}></div>}
     <div className='foot-tool'>选中[行数:{selectRowCount} 列数:{selectColCount} 求和:{selectSum} 平均:{selectMean} 最大:{selectMax} 最小:{ selectMin}]</div>
   </div>
   </ReactHandsontableContext.Provider>

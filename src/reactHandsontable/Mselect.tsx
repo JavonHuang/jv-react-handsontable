@@ -14,7 +14,6 @@ const Mselect = (props: any) => {
   return <Select
     key={new Date().getDate()}
     placeholder="Select a person"
-    mode="multiple"
     onChange={change}
     value={de}
     optionFilterProp="children"
