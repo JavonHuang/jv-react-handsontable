@@ -12,7 +12,6 @@ const Mselect = (props: any) => {
     setValue(e)
   }
   return <Select
-    key={new Date().getDate()}
     placeholder="Select a person"
     mode="multiple"
     onChange={change}
