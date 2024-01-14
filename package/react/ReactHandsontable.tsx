@@ -1,5 +1,5 @@
 
-import React, { useState,useEffect,memo, useRef, ReactElement, cloneElement, useImperativeHandle} from 'react'
+import React, { useState,useEffect, useRef, useImperativeHandle} from 'react'
 import "./index.scss"
 import { registerAllModules } from 'handsontable/registry';
 
@@ -14,12 +14,7 @@ import * as _ from 'lodash'
 import BigNumber from "bignumber.js"
 import HotTable from '@handsontable/react';
 
-interface IcellNodeMap { 
-  [key:string]: {
-    td: HTMLElement
-    node: React.ReactNode
-  }
-}
+
 registerAllModules();
 
 const ReactHandsontable: React.ForwardRefRenderFunction<IRefReactHandsontable | undefined, IReactHandsontable> = (props, ref) => {

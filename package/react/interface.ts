@@ -1,6 +1,3 @@
-import { HotColumn, HotTableProps } from "@handsontable/react";
-import { tuple } from "./tsTool";
-
 export interface IRefReactHandsontable{
   validateFields:()=>Promise<any>
 }

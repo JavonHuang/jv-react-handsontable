@@ -1,5 +1,4 @@
-import { BaseEditorComponent, HotEditorProps } from "@handsontable/react";
-import { type } from "os";
+import { BaseEditorComponent } from "@handsontable/react";
 import React, { cloneElement } from "react";
 
 
