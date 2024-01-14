@@ -1,6 +1,6 @@
 import { Select } from 'antd'
 import React, { useState,useEffect,memo, useRef} from 'react'
-const Mselect = (props: any) => { 
+const MselectEdit = (props: any) => { 
   let de;
   if (props.getValue()) { 
     de=props.getValue().split(',')
@@ -13,9 +13,10 @@ const Mselect = (props: any) => {
   }
   return <Select
     placeholder="Select a person"
-    mode="multiple"
     onChange={change}
-    value={de}
+    mode="multiple"
+    defaultValue={de}
+    value={value}
     optionFilterProp="children"
     options={[
       {
@@ -34,4 +35,4 @@ const Mselect = (props: any) => {
   />
 }
  
-export default memo(Mselect)
+export default memo(MselectEdit)

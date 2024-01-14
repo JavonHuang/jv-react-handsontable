@@ -29,7 +29,17 @@
     }
    } 
   }
+  tr{
+    &.select-row{
+      td[role="gridcell"]{
+        background-color: #cee2ff;
+      }
+    }
+  }
   td{
+    &.select-row{
+      background-color: #cee2ff;
+    }
     .jv-cell{
       &.highlight-error{
         border: 1px solid red;  

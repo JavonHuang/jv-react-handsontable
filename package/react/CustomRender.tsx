@@ -14,7 +14,9 @@ const CustomRender = (props:ICustomRender|any) => {
   };
 
   return <div style={containerStyle} className={[props.cellProperties.reqiured?'jv-cell is-reqiured':'jv-cell',props.cellProperties.valid===false?props.cellProperties.invalidCellClassName:''].join(' ')}>
-      {props.children?cloneElement(props.children,props):props.value}
+      {props.children&&cloneElement(props.children,props)}
+      {props.renderer && props.renderer(props)}
+      {!props.children && !props.renderer &&  props.value}
     </div>
 }
 

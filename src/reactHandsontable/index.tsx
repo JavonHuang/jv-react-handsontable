@@ -4,15 +4,19 @@ import { BaseEditorComponent, HotColumn, HotTable } from '@handsontable/react';
 import _ from 'lodash';
 import dayjs from 'dayjs';
 import 'handsontable/dist/handsontable.full.min.css';
-import { Button, Select } from 'antd';
+import { Button, ColorPicker, DatePicker, Select } from 'antd';
 import CustomEditors from 'package/react/CustomEditors';
 import CustomRender from 'package/react/CustomRender';
 
 import ReactHandsontable from 'package/react/ReactHandsontable';
-import Uselect from "./select"
+import SelectEdit from "./edit/SelectEdit"
 import RendererComponent from './RendererComponent';
-import Mselect from './Mselect';
-import MCheckBox from './MCheckBox';
+import MselectEdit from './edit/MselectEdit';
+import CheckBoxRender from './render/CheckBoxRender';
+import DatePickerEdit from './edit/DatePickerEdit';
+import RadioRender from './render/RadioRender';
+import MCheckBoxRender from './render/MCheckBoxRender';
+import ColorPickerRender from './render/ColorPickerRender';
 
 const MyTable = () => {
   const rootMyTable = useRef(null)
@@ -36,12 +40,12 @@ const MyTable = () => {
   const init = () => {
     let list1 = [];
     let year = 2023;
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < 30; i++) {
       // list1.push({
       //   year: yaer - i, momth: 12, day: 160+i,second:i
       // })
       let m=_.round(Math.random() * 10 + 1,2)
-      list1.push(["joijjoijoijjoijoijjoijjoijoijoij" ,false,160+m,56+m,"jack","jack",dayjs('2015/01/01', 'YYYY/MM/DD'),false,false,'断言。'])
+      list1.push(["joijjoijoijjoijoijjoijjoijoijoij" ,false,'Apple',"jack","jack,lucy",56+m,"jack",dayjs().unix(),'#1677ff',null,false,'断言。'])
     }
     setData(list1)
   }
@@ -68,6 +72,13 @@ const MyTable = () => {
     }
   };
 
+  const setCellClassName=(rowData)=>{
+    if(rowData[1]==true){
+      return "select-row"
+    }
+    return "";
+  }
+
   return <div className='mytable'>
     <Button onClick={getRow}>获取选中行</Button>
     <Button onClick={validate}>校验</Button>
@@ -77,27 +88,57 @@ const MyTable = () => {
       data={data}
       selected={false}
       onColumnWidthChange={(newSize,column)=>console.log(newSize,column)}
+      setCellClassName={setCellClassName}
     >
-      <HotColumn width={250} title='文本'>
+      <HotColumn width={250} title='文本' dropdownMenu={false}>
         <CustomEditors hot-editor >
-          <Uselect></Uselect>
+          <SelectEdit></SelectEdit>
         </CustomEditors>
-        <CustomRender hot-renderer>
-          <RendererComponent></RendererComponent>
+        <CustomRender hot-renderer renderer={(e)=><> Row: {e.row},column: {e.col},value: {e.value}</>}>
+          {/* <RendererComponent></RendererComponent> */}
         </CustomRender>
       </HotColumn>
-      <HotColumn width={200} title='勾选'>
+      <HotColumn width={80} title='勾选-单选'>
         <CustomRender hot-renderer>
-          <MCheckBox/>
+          <CheckBoxRender/>
         </CustomRender>
       </HotColumn>
-      <HotColumn width={200} title='身高' wordWrap={ false}>
+      <HotColumn width={250} title='勾选-多选'>
+        <CustomRender hot-renderer>
+          <MCheckBoxRender/>
+        </CustomRender>
+      </HotColumn>
+      <HotColumn width={200} title='单选' filter={false}>
         <CustomEditors hot-editor >
-          <Mselect/>
+          <SelectEdit/>
         </CustomEditors>
       </HotColumn>
-      <HotColumn width={200} title='身高' reqiured={ true} allowInvalid={true} validator={emptyValidator}>
+      <HotColumn width={200} title='多选' filter={false}>
+        <CustomEditors hot-editor >
+          <MselectEdit/>
+        </CustomEditors>
+      </HotColumn>
+      <HotColumn width={100} title='身高' reqiured={ true} allowInvalid={true} validator={emptyValidator}>
         <CustomRender hot-renderer>
+        </CustomRender>
+      </HotColumn>
+      <HotColumn width={100} filter_by_value={false} title='过滤器'>
+      </HotColumn>
+      <HotColumn width={120} title='日期'>
+        <CustomEditors hot-editor >
+          <DatePickerEdit/>
+        </CustomEditors>
+        <CustomRender hot-renderer renderer={(e)=>dayjs.unix(e.value).format('YYYY-MM-DD')}>
+        </CustomRender>
+      </HotColumn>
+      <HotColumn width={100} title='颜色'>
+        <CustomRender hot-renderer>
+          <ColorPickerRender/>
+        </CustomRender>
+      </HotColumn>
+      <HotColumn width={220} title='颜色'>
+        <CustomRender hot-renderer>
+          <RadioRender/>
         </CustomRender>
       </HotColumn>
     </ReactHandsontable>

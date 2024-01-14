@@ -1,6 +1,6 @@
 import { Select } from 'antd'
 import React, { useState,useEffect,memo, useRef} from 'react'
-const Mselect = (props: any) => { 
+const SelectEdit = (props: any) => { 
   let de;
   if (props.getValue()) { 
     de=props.getValue().split(',')
@@ -33,4 +33,4 @@ const Mselect = (props: any) => {
   />
 }
  
-export default memo(Mselect)
+export default memo(SelectEdit)
