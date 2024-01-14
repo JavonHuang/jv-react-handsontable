@@ -10,7 +10,6 @@ import CustomRender from 'package/react/CustomRender';
 
 import ReactHandsontable from 'package/react/ReactHandsontable';
 import SelectEdit from "./edit/SelectEdit"
-import RendererComponent from './RendererComponent';
 import MselectEdit from './edit/MselectEdit';
 import CheckBoxRender from './render/CheckBoxRender';
 import DatePickerEdit from './edit/DatePickerEdit';
@@ -95,7 +94,6 @@ const MyTable = () => {
           <SelectEdit></SelectEdit>
         </CustomEditors>
         <CustomRender hot-renderer renderer={(e)=><> Row: {e.row},column: {e.col},value: {e.value}</>}>
-          {/* <RendererComponent></RendererComponent> */}
         </CustomRender>
       </HotColumn>
       <HotColumn width={80} title='勾选-单选' data={'key2'}>
