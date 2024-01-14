@@ -45,7 +45,7 @@ const MyTable = () => {
       //   year: yaer - i, momth: 12, day: 160+i,second:i
       // })
       let m=_.round(Math.random() * 10 + 1,2)
-      list1.push(["joijjoijoijjoijoijjoijjoijoijoij" ,false,'Apple',"jack","jack,lucy",56+m,"jack",dayjs().unix(),'#1677ff',null,false,'断言。'])
+      list1.push({key1:'joijjoijoijjoijoijjoijjoijoijoij' ,key2:false,key3:'Apple',key4:"jack",key5:"jack,lucy",key6:56+m,key7:"jack",key8:dayjs().unix(),key9:'#1677ff',key10:null,key11:false,key12:'断言。'})
     }
     setData(list1)
   }
@@ -90,7 +90,7 @@ const MyTable = () => {
       onColumnWidthChange={(newSize,column)=>console.log(newSize,column)}
       setCellClassName={setCellClassName}
     >
-      <HotColumn width={250} title='文本' dropdownMenu={false}>
+      <HotColumn width={250} title='文本' dropdownMenu={false} data={'key1'}>
         <CustomEditors hot-editor >
           <SelectEdit></SelectEdit>
         </CustomEditors>
@@ -98,45 +98,45 @@ const MyTable = () => {
           {/* <RendererComponent></RendererComponent> */}
         </CustomRender>
       </HotColumn>
-      <HotColumn width={80} title='勾选-单选'>
+      <HotColumn width={80} title='勾选-单选' data={'key2'}>
         <CustomRender hot-renderer>
           <CheckBoxRender/>
         </CustomRender>
       </HotColumn>
-      <HotColumn width={250} title='勾选-多选'>
+      <HotColumn width={250} title='勾选-多选' data={'key3'}>
         <CustomRender hot-renderer>
           <MCheckBoxRender/>
         </CustomRender>
       </HotColumn>
-      <HotColumn width={200} title='单选' filter={false}>
+      <HotColumn width={200} title='单选' filter={false}data={'key4'}>
         <CustomEditors hot-editor >
           <SelectEdit/>
         </CustomEditors>
       </HotColumn>
-      <HotColumn width={200} title='多选' filter={false}>
+      <HotColumn width={200} title='多选' filter={false}data={'key5'}>
         <CustomEditors hot-editor >
           <MselectEdit/>
         </CustomEditors>
       </HotColumn>
-      <HotColumn width={100} title='身高' reqiured={ true} allowInvalid={true} validator={emptyValidator}>
+      <HotColumn width={100} title='身高' reqiured={ true} allowInvalid={true} validator={emptyValidator} data={'key6'}>
         <CustomRender hot-renderer>
         </CustomRender>
       </HotColumn>
-      <HotColumn width={100} filter_by_value={false} title='过滤器'>
+      <HotColumn width={100} filter_by_value={false} title='过滤器' data={'key7'}>
       </HotColumn>
       <HotColumn width={120} title='日期'>
         <CustomEditors hot-editor >
           <DatePickerEdit/>
         </CustomEditors>
-        <CustomRender hot-renderer renderer={(e)=>dayjs.unix(e.value).format('YYYY-MM-DD')}>
+        <CustomRender hot-renderer renderer={(e)=>dayjs.unix(e.value).format('YYYY-MM-DD')} data={'key8'}>
         </CustomRender>
       </HotColumn>
-      <HotColumn width={100} title='颜色'>
+      <HotColumn width={100} title='颜色' data={'key9'}>
         <CustomRender hot-renderer>
           <ColorPickerRender/>
         </CustomRender>
       </HotColumn>
-      <HotColumn width={220} title='颜色'>
+      <HotColumn width={220} title='颜色' data={'key10'}>
         <CustomRender hot-renderer>
           <RadioRender/>
         </CustomRender>
