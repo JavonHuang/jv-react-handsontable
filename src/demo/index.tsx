@@ -24,6 +24,7 @@ const PromotionRenderer = (props) => {
       <span>&#10004;</span>
     );
   }
+  console.log(props)
   return (
     <span>&#10007;</span>
   );
@@ -34,18 +35,12 @@ let data = [
 
 ];
 
-for (let i = 0; i < 300; i += 1) { 
+for (let i = 0; i < 1; i += 1) { 
   data.push({
     id: i,
     name: 'Alex='+1,
     score: 10,
     isPromoted: false,
-    __children: [{
-      id: i*2,
-      name: 'Alex='+1,
-      score: 10,
-      isPromoted: false,
-    }]
   })
 }
 

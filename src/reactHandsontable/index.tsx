@@ -9,6 +9,7 @@ import CustomEditors from 'package/react/CustomEditors';
 import CustomRender from 'package/react/CustomRender';
 
 import ReactHandsontable from 'package/react/ReactHandsontable';
+import {checkboxCell} from "package/react"
 import SelectEdit from "./edit/SelectEdit"
 import MselectEdit from './edit/MselectEdit';
 import CheckBoxRender from './render/CheckBoxRender';
@@ -39,7 +40,7 @@ const MyTable = () => {
   const init = () => {
     let list1 = [];
     let year = 2023;
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 100000; i++) {
       // list1.push({
       //   year: yaer - i, momth: 12, day: 160+i,second:i
       // })
@@ -57,20 +58,6 @@ const MyTable = () => {
         key10: null,
         key11: false,
         key12: '断言。',
-        __children: [{
-          key1: 'chi',
-          key2: false,
-          key3: 'Apple',
-          key4: "jack",
-          key5: "jack,lucy",
-          key6: 56 + m,
-          key7: "jack",
-          key8: dayjs().unix(),
-          key9: '#1677ff',
-          key10: null,
-          key11: false,
-          key12: '断言。'
-        }]
       })
     }
     setData(list1)
@@ -105,6 +92,12 @@ const MyTable = () => {
     return "";
   }
 
+  // const renderer=(instance, td, row, col, prop, value, cellProperties)=>{
+  //   // console.log(instance)
+  //   new CheckboxCell(row, col,value,td,instance);
+  //   return td;
+  // }
+
   return <div className='mytable'>
     {/* <Button onClick={getRow}>获取选中行</Button>
     <Button onClick={validate}>校验</Button> */}
@@ -120,15 +113,15 @@ const MyTable = () => {
         <CustomEditors hot-editor >
           <SelectEdit></SelectEdit>
         </CustomEditors>
-        <CustomRender hot-renderer renderer={(e) => <> Row: {e.row},column: {e.col},value: {e.value}</>}>
-        </CustomRender>
+        {/* <CustomRender hot-renderer renderer={(e) => <> Row: {e.row},column: {e.col},value: {e.value}</>}>
+        </CustomRender> */}
       </HotColumn>
-      <HotColumn width={80} title='勾选-单选' data={'key2'}>
-        <CustomRender hot-renderer>
+      <HotColumn width={80} title='勾选-单选' data={'key2'} renderer={checkboxCell}>
+        {/* <CustomRender hot-renderer>
           <CheckBoxRender />
-        </CustomRender>
+        </CustomRender> */}
       </HotColumn>
-      <HotColumn width={250} title='勾选-多选' data={'key3'}>
+      {/* <HotColumn width={250} title='勾选-多选' data={'key3'}>
         <CustomRender hot-renderer>
           <MCheckBoxRender />
         </CustomRender>
@@ -165,7 +158,7 @@ const MyTable = () => {
         <CustomRender hot-renderer>
           <RadioRender />
         </CustomRender>
-      </HotColumn>
+      </HotColumn> */}
     </ReactHandsontable>}
   </div>
 }
