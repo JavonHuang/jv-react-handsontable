@@ -17,3 +17,24 @@ div{
   box-sizing: border-box;
 
 }
+
+.modal-base{
+  height: 800px;
+  width: 1000px!important;
+  .ant-modal-content{
+    width: 1000px;
+    height: 600px;
+    .ant-modal-body{
+      width: 800px;
+      height: 600px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      .react-handsontable{
+        overflow:auto;
+        width: 800px;
+        height: 400px;
+      }
+    }
+  }
+}

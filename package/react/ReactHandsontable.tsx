@@ -105,7 +105,6 @@ const ReactHandsontable: React.ForwardRefRenderFunction<IRefReactHandsontable | 
         width="100%"
         rowHeights='50'
         minRows={0}
-        nestedRows={true}
         afterGetColHeader={afterGetColHeader}
         afterGetRowHeader={afterGetRowHeader}
         afterColumnResize={afterColumnResize}
@@ -121,6 +120,9 @@ const ReactHandsontable: React.ForwardRefRenderFunction<IRefReactHandsontable | 
               TD.parentElement!.className=""
             }
           }
+        }}
+        afterScroll={()=>{
+          rootHot.current?.hotInstance?.destroyEditor()
         }}
         dropdownMenu={setDropdownMenu(rootHot.current!,props)}
         contextMenu={setContextMenu(rootHot.current!)}

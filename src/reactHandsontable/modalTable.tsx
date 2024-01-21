@@ -17,9 +17,8 @@ import DatePickerEdit from './edit/DatePickerEdit';
 import RadioRender from './render/RadioRender';
 import MCheckBoxRender from './render/MCheckBoxRender';
 import ColorPickerRender from './render/ColorPickerRender';
-import ModalTable from './modalTable';
 
-const MyTable = () => {
+const ModalTable = () => {
   const rootMyTable = useRef(null)
   const [data, setData] = useState<any>([])
 
@@ -43,7 +42,7 @@ const MyTable = () => {
   const init = () => {
     let list1 = [];
     let year = 2023;
-    for (let i = 0; i < 1; i++) {
+    for (let i = 0; i < 1000; i++) {
       // list1.push({
       //   year: yaer - i, momth: 12, day: 160+i,second:i
       // })
@@ -95,27 +94,10 @@ const MyTable = () => {
     return "";
   }
 
-
-
-    const showModal = () => {
-      setIsModalOpen(true);
-    };
-
-    const handleOk = () => {
-      setIsModalOpen(false);
-    };
-
-    const handleCancel = () => {
-      setIsModalOpen(false);
-    };
-
-
-  return <div className='mytable'>
-    <Button onClick={getRow}>获取选中行</Button>
-    <Button onClick={validate}>校验</Button>
-    <Button onClick={showModal}>弹窗</Button>
-
-    <ReactHandsontable
+  return <>
+    {/* <Button onClick={getRow}>获取选中行</Button>
+    <Button onClick={validate}>校验</Button> */}
+   {data.length>0 && <ReactHandsontable
       ref={rootMyTable}
       data={data}
       selected={false}
@@ -172,11 +154,8 @@ const MyTable = () => {
           <RadioRender />
         </CustomRender>
       </HotColumn>
-    </ReactHandsontable>
-    <Modal className='modal-base' title="Basic Modal" zIndex={998} width="80%" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-      <ModalTable></ModalTable>
-    </Modal>
-  </div>
+    </ReactHandsontable>}
+  </>
 }
-export default memo(MyTable)
+export default memo(ModalTable)
 
