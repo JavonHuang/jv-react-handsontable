@@ -27,13 +27,13 @@ export default class CustomEditors extends BaseEditorComponent {
   
 
   setValue=(value, callback)=> {
-    this.setState((state, props) => {
-      return { value: value };
-    }, callback);
+    this.setState({
+      value:value
+    });
   }
 
   getValue = () => {
-    return this.state.value.toString();
+    return this.state.value;
   }
   
 
@@ -52,6 +52,13 @@ export default class CustomEditors extends BaseEditorComponent {
       open:false,
     })
     this.mainElementRef.current.style.display = 'none';
+    if(this.closeCallback){
+      this.closeCallback()
+    }
+  }
+
+  setCloseCallback=(e)=>{
+    this.closeCallback=e
   }
 
   prepare(row, col, prop, td, originalValue, cellProperties) {

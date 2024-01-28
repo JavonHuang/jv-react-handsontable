@@ -18,6 +18,8 @@ import RadioRender from './render/RadioRender';
 import MCheckBoxRender from './render/MCheckBoxRender';
 import ColorPickerRender from './render/ColorPickerRender';
 import ModalTable from './modalTable';
+import SelectObj from './edit/SelectObj';
+import MSelectObj from './edit/MSelectObj';
 
 const MyTable = () => {
   const rootMyTable = useRef(null)
@@ -61,6 +63,23 @@ const MyTable = () => {
         key10: null,
         key11: false,
         key12: '断言。',
+        fSelect:{
+          key: '008',
+          label: '珠海',
+          value: '008',
+        },
+        fSelectMultiple: [
+          {
+            key: '005',
+            label: '厦门',
+            value: '005',
+          },
+          {
+            key: '006',
+            label: '澳门',
+            value: '006',
+          },
+        ],
       })
     }
     setData(list1)
@@ -109,6 +128,17 @@ const MyTable = () => {
       setIsModalOpen(false);
     };
 
+    const rendererFSelect=(instance, td, row, col, prop, value, cellProperties)=>{
+      td.innerHTML=value.label
+      return td;
+    }
+
+    const rendererfSelectMultiple=(instance, td, row, col, prop, value, cellProperties)=>{
+      td.innerHTML=JSON.stringify(value)
+      let laebl=value.map(e=>e.label).join(',')
+      td.innerHTML=laebl
+      return td;
+    }
 
   return <div className='mytable'>
     <Button onClick={getRow}>获取选中行</Button>
@@ -139,7 +169,7 @@ const MyTable = () => {
           <MCheckBoxRender />
         </CustomRender>
       </HotColumn>
-      <HotColumn width={200} title='单选' filter={false} data={'key4'}>
+      {/* <HotColumn width={200} title='单选' filter={false} data={'key4'}>
         <CustomEditors hot-editor >
           <SelectEdit />
         </CustomEditors>
@@ -171,6 +201,16 @@ const MyTable = () => {
         <CustomRender hot-renderer>
           <RadioRender />
         </CustomRender>
+      </HotColumn>
+      <HotColumn width={220} title='单选对象' data={'fSelect'} renderer={rendererFSelect}>
+      <CustomEditors hot-editor >
+          <SelectObj />
+        </CustomEditors>
+      </HotColumn> */}
+      <HotColumn width={220} title='多选对象' data={'fSelectMultiple'} renderer={rendererfSelectMultiple}>
+      <CustomEditors hot-editor >
+          <MSelectObj />
+        </CustomEditors>
       </HotColumn>
     </ReactHandsontable>
     <Modal className='modal-base' title="Basic Modal" zIndex={998} width="80%" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
