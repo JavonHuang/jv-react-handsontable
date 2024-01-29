@@ -53,6 +53,9 @@ const ReactHandsontable: React.ForwardRefRenderFunction<IRefReactHandsontable | 
       }
       button.parentElement.removeChild(button);
     }
+    if (column!=-1 &&props.children[column].props.allChecked) { 
+      
+    }
   }
 
   const afterGetRowHeader = (row, TH) => {

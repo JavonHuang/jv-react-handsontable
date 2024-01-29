@@ -9,7 +9,7 @@ import CustomEditors from 'package/react/CustomEditors';
 import CustomRender from 'package/react/CustomRender';
 
 import ReactHandsontable from 'package/react/ReactHandsontable';
-import {checkboxCell} from "package/react"
+import {checkboxCell,checkboxPageCell} from "package/react"
 import SelectEdit from "./edit/SelectEdit"
 import MselectEdit from './edit/MselectEdit';
 import CheckBoxRender from './render/CheckBoxRender';
@@ -23,6 +23,8 @@ import MSelectObj from './edit/MSelectObj';
 
 const MyTable = () => {
   const rootMyTable = useRef(null)
+  const checkIDMap = useRef({})
+
   const [data, setData] = useState<any>([])
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -45,12 +47,13 @@ const MyTable = () => {
   const init = () => {
     let list1 = [];
     let year = 2023;
-    for (let i = 0; i < 1; i++) {
+    for (let i = 0; i < 4; i++) {
       // list1.push({
       //   year: yaer - i, momth: 12, day: 160+i,second:i
       // })
       let m=_.round(Math.random() * 10 + 1,2)
       list1.push({
+        key0:`id_${i}`,
         key1: 'joijjoijoijjoijoijjoijjoijoijoij',
         key2: false,
         key3: 'Apple',
@@ -138,7 +141,12 @@ const MyTable = () => {
       let laebl=value.map(e=>e.label).join(',')
       td.innerHTML=laebl
       return td;
-    }
+  }
+  
+  const rendererChecked = (instance, td, row, col, prop, value, cellProperties)=>{
+    checkboxPageCell(instance, td, row, col, prop, value, cellProperties,checkIDMap.current)
+    return td;
+}
 
   return <div className='mytable'>
     <Button onClick={getRow}>获取选中行</Button>
@@ -152,6 +160,8 @@ const MyTable = () => {
       onColumnWidthChange={(newSize, column) => console.log(newSize, column)}
       setCellClassName={setCellClassName}
     >
+      <HotColumn width={80} data={'key0'} renderer={rendererChecked} allChecked>
+      </HotColumn>
       <HotColumn width={250} title='文本' dropdownMenu={false} data={'key1'}>
         <CustomEditors hot-editor >
           <SelectEdit></SelectEdit>

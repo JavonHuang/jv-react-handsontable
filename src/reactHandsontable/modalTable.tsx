@@ -42,7 +42,7 @@ const ModalTable = () => {
   const init = () => {
     let list1 = [];
     let year = 2023;
-    for (let i = 0; i < 1000; i++) {
+    for (let i = 0; i < 3; i++) {
       // list1.push({
       //   year: yaer - i, momth: 12, day: 160+i,second:i
       // })
