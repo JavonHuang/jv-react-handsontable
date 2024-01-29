@@ -15,6 +15,8 @@ import BigNumber from "bignumber.js"
 import HotTable, { HotColumn } from '@handsontable/react';
 import Handsontable from 'handsontable';
 import ReactHandsontableFoot from "./ReactHandsontableFoot";
+import {checkboxPageAll} from "./CheckboxCell"
+
 
 registerAllModules();
 
@@ -54,7 +56,9 @@ const ReactHandsontable: React.ForwardRefRenderFunction<IRefReactHandsontable | 
       button.parentElement.removeChild(button);
     }
     if (column!=-1 &&props.children[column].props.allChecked) { 
-      
+      checkboxPageAll(TH,rootHot.current,function(){
+       return props.onSelectAll!()
+      })
     }
   }
 

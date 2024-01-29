@@ -24,6 +24,8 @@ import MSelectObj from './edit/MSelectObj';
 const MyTable = () => {
   const rootMyTable = useRef(null)
   const checkIDMap = useRef({})
+  const checkAll= useRef(false)
+
 
   const [data, setData] = useState<any>([])
 
@@ -148,6 +150,18 @@ const MyTable = () => {
     return td;
 }
 
+  const onSelectAll=()=>{
+    checkAll.current=!checkAll.current
+    data.forEach(item => {
+      if(checkAll.current){
+        checkIDMap[item.key0]=true
+      }else{
+        checkIDMap[item.key0]=false
+      }
+    });
+    return checkAll.current;
+  }
+
   return <div className='mytable'>
     <Button onClick={getRow}>获取选中行</Button>
     <Button onClick={validate}>校验</Button>
@@ -156,6 +170,7 @@ const MyTable = () => {
     <ReactHandsontable
       ref={rootMyTable}
       data={data}
+      onSelectAll={onSelectAll}
       selected={false}
       onColumnWidthChange={(newSize, column) => console.log(newSize, column)}
       setCellClassName={setCellClassName}
