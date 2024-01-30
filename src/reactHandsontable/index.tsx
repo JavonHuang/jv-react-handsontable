@@ -9,7 +9,7 @@ import CustomEditors from 'package/react/CustomEditors';
 import CustomRender from 'package/react/CustomRender';
 
 import ReactHandsontable from 'package/react/ReactHandsontable';
-import {checkboxCell,checkboxPageCell} from "package/react"
+import {checkboxCell} from "package/react"
 import SelectEdit from "./edit/SelectEdit"
 import MselectEdit from './edit/MselectEdit';
 import CheckBoxRender from './render/CheckBoxRender';
@@ -32,7 +32,7 @@ const MyTable = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    init()
+    init(1)
   }, []);
 
   const emailValidator = (value:any, callback:(e: boolean) => void) => {
@@ -46,16 +46,17 @@ const MyTable = () => {
     }, 0);
   };
 
-  const init = () => {
+  const init = (page) => {
+    let pageSize = 5;
     let list1 = [];
     let year = 2023;
-    for (let i = 0; i < 4; i++) {
+    for (let i =( page-1)*pageSize; i < page*pageSize; i++) {
       // list1.push({
       //   year: yaer - i, momth: 12, day: 160+i,second:i
       // })
       let m=_.round(Math.random() * 10 + 1,2)
       list1.push({
-        key0:`id_${i}`,
+        key0:false,
         key1: 'joijjoijoijjoijoijjoijjoijoijoij',
         key2: false,
         key3: 'Apple',
@@ -90,6 +91,12 @@ const MyTable = () => {
     setData(list1)
   }
 
+  const nextPage = () => { 
+    init(2)
+  }
+  const prePage = () => { 
+    init(1)
+  }
   const getRow=()=>{
     console.log(rootMyTable.current!.getSelectRow())
   }
@@ -150,32 +157,21 @@ const MyTable = () => {
     return td;
 }
 
-  const onSelectAll=()=>{
-    checkAll.current=!checkAll.current
-    data.forEach(item => {
-      if(checkAll.current){
-        checkIDMap[item.key0]=true
-      }else{
-        checkIDMap[item.key0]=false
-      }
-    });
-    return checkAll.current;
-  }
-
   return <div className='mytable'>
     <Button onClick={getRow}>获取选中行</Button>
     <Button onClick={validate}>校验</Button>
     <Button onClick={showModal}>弹窗</Button>
+    <Button onClick={nextPage}>下一页</Button>
+    <Button onClick={prePage}>上一页</Button>
 
     <ReactHandsontable
       ref={rootMyTable}
       data={data}
-      onSelectAll={onSelectAll}
       selected={false}
       onColumnWidthChange={(newSize, column) => console.log(newSize, column)}
       setCellClassName={setCellClassName}
     >
-      <HotColumn width={80} data={'key0'} renderer={rendererChecked} allChecked>
+      <HotColumn width={80} data={'key0'} renderer={checkboxCell} title='' allChecked>
       </HotColumn>
       <HotColumn width={250} title='文本' dropdownMenu={false} data={'key1'}>
         <CustomEditors hot-editor >

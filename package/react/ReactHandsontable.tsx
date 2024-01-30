@@ -5,7 +5,6 @@ import { registerAllModules } from 'handsontable/registry';
 
 import 'handsontable/dist/handsontable.full.min.css';
 import { IReactHandsontable, IRefReactHandsontable } from './interface';
-import RowCheckbox from "./userPlugins/RowCheckbox";
 import {  ReactHandsontableContext} from './ReactHandsontableContext';
 import setDropdownMenu from "./userPlugins/DropdownMenu";
 import setContextMenu from "./userPlugins/ContextMenu"
@@ -15,14 +14,18 @@ import BigNumber from "bignumber.js"
 import HotTable, { HotColumn } from '@handsontable/react';
 import Handsontable from 'handsontable';
 import ReactHandsontableFoot from "./ReactHandsontableFoot";
-import {checkboxPageAll} from "./CheckboxCell"
+import {checkboxAll} from "./CheckboxCell"
+import { createPortal } from 'react-dom';
 
 
 registerAllModules();
 
 const ReactHandsontable: React.ForwardRefRenderFunction<IRefReactHandsontable | undefined, IReactHandsontable> = (props, ref) => {
   const rootHot = useRef<HotTable>(null)
-  const checkedAllRef=useRef<any>(null)
+  const checkAllcolumn = useRef(null)
+  const [checkAllTH,setCheckAllTH]= useState(null)
+
+
 
   const [renderFinish, setRenderFinish] = useState(false);
   useEffect(() => { 
@@ -32,17 +35,13 @@ const ReactHandsontable: React.ForwardRefRenderFunction<IRefReactHandsontable | 
       }
     });
   }, [])
-  
-  useEffect(() => { 
-    if(rootHot.current&& props.data){}
-    rootHot.current&& props.data&& RowCheckbox.setHot(rootHot.current!,props.data) 
-  },[props.data])
 
-  useEffect(() => {
-    if (props.selected) { 
-      RowCheckbox.createCheckbox(checkedAllRef.current!)
+  useEffect(() => { 
+    if (renderFinish && checkAllTH &&checkAllcolumn.current!=null ) { 
+      setSelectAllDom(false)
     }
-  },[])
+  }, props.data)
+
   
   const afterGetColHeader = (column, TH, headerLevel) => {
     if(column!=-1 && props.children[column].props.reqiured){
@@ -55,19 +54,17 @@ const ReactHandsontable: React.ForwardRefRenderFunction<IRefReactHandsontable | 
       }
       button.parentElement.removeChild(button);
     }
-    if (column!=-1 &&props.children[column].props.allChecked) { 
-      checkboxPageAll(TH,rootHot.current,function(){
-       return props.onSelectAll!()
-      })
+    
+    if (column != -1 && rootHot.current && props.children[column].props.allChecked) { 
+      checkAllcolumn.current = column
+      !checkAllTH && setCheckAllTH(TH.children[0])
+      rootHot.current!.hotInstance!['selectItem'] = function (e) { 
+        let data = rootHot.current?.hotInstance!.getDataAtCol(checkAllcolumn.current)!
+        let index=data.findIndex(e=>e==false)
+        setSelectAllDom(index == -1)
+      }
     }
   }
-
-  const afterGetRowHeader = (row, TH) => {
-    if (props.selected) { 
-      RowCheckbox.addEventListener(row,TH)
-    }
-  }
-
 
   const afterColumnResize=(newSize,column)=>{
     if(props.onColumnWidthChange){
@@ -89,11 +86,36 @@ const ReactHandsontable: React.ForwardRefRenderFunction<IRefReactHandsontable | 
           })
         })
       },
-      getSelectRow:()=>{
-        return RowCheckbox.getCheckRowData()
-      }
     }
   });
+
+  const onSelectAll = (e: any) => { 
+    let data = rootHot.current?.hotInstance!.getData()!
+
+    if (e.target.checked) {
+      e.target.parentElement.classList.add('is-checked')
+    } else { 
+      e.target.parentElement.classList.remove('is-checked')
+    }
+    let all=[]
+    rootHot.current?.hotInstance!.suspendRender();
+    for (let i = 0; i < data?.length; i += 1) { 
+      all.push([i,checkAllcolumn.current!, e.target.checked])
+    }
+    rootHot.current?.hotInstance!.setDataAtCell(all);
+
+    rootHot.current?.hotInstance!.resumeRender(); 
+  }
+
+  const setSelectAllDom = (e) => {
+    if (e) { 
+      checkAllTH.querySelector('input').checked=e
+      checkAllTH.lastChild.children[0].classList.add('is-checked')
+    } else {
+      checkAllTH.querySelector('input').checked=e
+      checkAllTH.lastChild.children[0].classList.remove('is-checked')
+     }
+   }
 
   return <ReactHandsontableContext.Provider value={{
         hot: rootHot.current,
@@ -113,7 +135,6 @@ const ReactHandsontable: React.ForwardRefRenderFunction<IRefReactHandsontable | 
         rowHeights='50'
         minRows={0}
         afterGetColHeader={afterGetColHeader}
-        afterGetRowHeader={afterGetRowHeader}
         afterColumnResize={afterColumnResize}
         enterMoves={setEnterMoves(rootHot.current!)}
         filters={true}
@@ -137,7 +158,9 @@ const ReactHandsontable: React.ForwardRefRenderFunction<IRefReactHandsontable | 
       >
         {props.children}
       </HotTable>
-      {props.selected && <div className='all-checkbox' ref={checkedAllRef}></div>}
+      {
+        checkAllTH && createPortal(<label className="jv-checkbox"><span className="all-RowCheckbox" onClick={onSelectAll}><input className="checkbox-input" type="checkbox"/><span className="checkbox-inner"></span></span></label>,checkAllTH!)
+      }
       {renderFinish && <ReactHandsontableFoot hotInstance={rootHot.current.hotInstance} />}
   </div>
   </ReactHandsontableContext.Provider>
