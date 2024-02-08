@@ -98,13 +98,18 @@ const MyTable = () => {
   const init = () => {
     let list1 = [];
     let year = 2023;
-    for (let i = 0; i < 500; i++) {
+    console.time('执行一万次需要用的时间')
+
+
+    for (let i = 0; i < 500000; i++) {
       // list1.push({
       //   year: yaer - i, momth: 12, day: 160+i,second:i
       // })
       let m=_.round(Math.random() * 10 + 1,2)
       list1.push(["joijjoijoijjoijoijjoijjoijoijoij" ,160+m,false,56+m,"jack","jack",dayjs('2015/01/01', 'YYYY/MM/DD'),false,false,'在上面的示例中，我们首先定义了一个包含数字的数组。然后，我们使用类型断言将该数组转换为字符串类型数组。这里有两种方式可以实现：一种是使用Array<string>类型断言，另一种是直接使用string[]类型断言。'])
     }
+    console.timeEnd('执行一万次需要用的时间')//执行一万次需要用的时间: 0.523193359375 ms
+
     setData(list1)
   }
   const validate=()=>{

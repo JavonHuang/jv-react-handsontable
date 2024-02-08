@@ -152,6 +152,18 @@ const ReactHandsontable: React.ForwardRefRenderFunction<IRefReactHandsontable | 
         afterScroll={()=>{
           rootHot.current?.hotInstance?.destroyEditor()
         }}
+        afterAutofill={(data,sourceRange,targetRange,direction) => { 
+          console.log(data[0][0], sourceRange, targetRange, direction)
+          let cell = sourceRange.from.col
+          let to = targetRange.to.row
+          let from = targetRange.from.row
+          let all = []
+          for (let i=from; i <=to; i++) { 
+            all.push([i,cell, data[0][0]])
+          }
+          rootHot.current?.hotInstance!.setDataAtCell(all);
+
+        }}
         dropdownMenu={setDropdownMenu(rootHot.current!,props)}
         contextMenu={setContextMenu(rootHot.current!)}
         licenseKey="non-commercial-and-evaluation" // for non-commercial use only

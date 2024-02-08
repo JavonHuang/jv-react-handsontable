@@ -222,12 +222,12 @@ const MyTable = () => {
         <CustomRender hot-renderer>
           <RadioRender />
         </CustomRender>
-      </HotColumn>
+      </HotColumn> */}
       <HotColumn width={220} title='单选对象' data={'fSelect'} renderer={rendererFSelect}>
       <CustomEditors hot-editor >
           <SelectObj />
         </CustomEditors>
-      </HotColumn> */}
+      </HotColumn>
       <HotColumn width={220} title='多选对象' data={'fSelectMultiple'} renderer={rendererfSelectMultiple}>
       <CustomEditors hot-editor >
           <MSelectObj />
